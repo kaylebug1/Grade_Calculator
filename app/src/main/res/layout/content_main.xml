@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="YOUR MOM IS... A HUMAN"
+        android:text="YOUR MOM IS..."
         android:id="@+id/textView3"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
