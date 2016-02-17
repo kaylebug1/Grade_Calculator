@@ -27,4 +27,14 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="199dp"
         android:layout_marginTop="61dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Text Change 2"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="68dp" />
 </RelativeLayout>
