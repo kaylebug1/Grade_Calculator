@@ -33,6 +33,9 @@ public class SettingsTest {
         s.setBaseGrade(7.0f);
         assert (s.getBaseGrade() == 7.0f);
         assert (s.getTargetGrade() == Settings.UNSET);
+        s.reset();
+        assert (s.getBaseGrade() == Settings.UNSET);
+        assert (s.getTargetGrade() == Settings.UNSET);
 
     }
 }
