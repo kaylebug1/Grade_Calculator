@@ -5,13 +5,16 @@ import org.junit.Test;
 import dalvik.annotation.TestTargetClass;
 
 /**
- * Created by Testare on 24-Feb-16.
+ * Test for Settings class
  */
 public class SettingsTest {
-    Settings s = new Settings();
+    Settings s;
+
+    /**
+     * Tests the Getter/Setter methods,the reset method, and the constructors for the Setting object
+     */
     @Test
     public void testGradeSetters() {
-
         s = new Settings(1.0f);
         assert (s.getBaseGrade() == 1.0f);
         assert (s.getTargetGrade() == Settings.UNSET);
