@@ -2,4 +2,5 @@
     <string name="app_name">Grade_Calculator</string>
     <string name="action_settings">Settings</string>
     <string name="theTruth">YOUR MOM IS NOT AS COOL AS LOGAN\'S MOM</string>
+    <string name="title_activity_course">CourseActivity</string>
 </resources>
