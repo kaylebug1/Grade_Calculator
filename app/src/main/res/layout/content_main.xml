@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Grade Calculator"
-        android:id="@+id/textView" />
+        android:id="@+id/textView"
+        android:layout_marginLeft="5dp" />
 
     <View
         android:layout_width="match_parent"
@@ -36,7 +37,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Course"
-        android:id="@+id/textView2"
+        android:id="@+id/Course"
         android:layout_gravity="left|center_horizontal"
         android:layout_marginLeft="40dp" />
 
@@ -48,10 +49,11 @@
         android:layout_marginLeft="40dp" />
 
     <ListView
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="154dp"
         android:id="@+id/listView"
-        android:layout_weight="0.53" />
+        android:layout_weight="0.53"
+        android:layout_marginLeft="40dp" />
 
 
     <Button
