@@ -12,4 +12,48 @@
     tools:context="com.example.kayle.grade_calculator.CourseActivity"
     tools:showIn="@layout/activity_course">
 
+    <ExpandableListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/expandableListView"
+        android:layout_marginBottom="194dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/button3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Projected Score"
+        android:id="@+id/textView2"
+        android:layout_marginBottom="98dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Percent Complete"
+        android:id="@+id/textView3"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="43dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Section"
+        android:id="@+id/button2"
+        android:layout_above="@+id/textView2"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:id="@+id/button3"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
