@@ -5,15 +5,15 @@ import org.junit.Test;
 /**
  * Created by Steve on 2/24/2016.
  */
-public class CalculatorTest {
+public class CalculatorTest{
 
-    Kalkul8r calc = new Kalkul8r();
+    Calculator calc = new Calculator();
 
     @Test
     public void testCalcGrade() {
         Course course = new Course();
         course.addSection();
-        course.sections.get(0).addAssignment(new Assignment());
+        course.getSection(0).addAssignment(new Assignment());
         assert(calc.calcGrade(course) >= 0.0);
     }
 
@@ -21,7 +21,7 @@ public class CalculatorTest {
     public void testProjectNeededGrade() {
         Course course = new Course();
         course.addSection();
-        course.sections.get(0).addAssignment(new Assignment());
+        course.getSection(0).addAssignment(new Assignment());
         float tempGrade = 0.0f;
         assert(calc.projectNeededGrade(course, tempGrade) >= 0.0);
     }

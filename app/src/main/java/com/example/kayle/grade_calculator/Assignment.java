@@ -8,7 +8,11 @@ public class Assignment {
         return 0.0f;
     }
 
-    void setPointValue() {
+    Assignment() {}
+    Assignment(float pointValue) {}
+    Assignment(float pointValue,float pointsEarned) {}
+
+    void setPointValue(float f) {
 
     }
 
