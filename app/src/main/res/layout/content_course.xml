@@ -20,6 +20,24 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/button3" />
+    <View
+        android:layout_width="400dp"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        android:id="@+id/view1"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/view"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="48dp" />
+    <View
+        android:layout_width="400dp"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        android:id="@+id/view2"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="65dp"
+        android:layout_below="@+id/view1"
+        android:layout_alignEnd="@+id/expandableListView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,6 +66,14 @@
         android:id="@+id/button2"
         android:layout_above="@+id/textView2"
         android:layout_alignParentStart="true" />
+    <View
+        android:layout_width="400dp"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        android:id="@+id/view3"
+        android:layout_marginLeft="10dp"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -55,5 +81,43 @@
         android:text="Settings"
         android:id="@+id/button3"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignEnd="@+id/expandableListView" />
+    <View
+        android:layout_width="400dp"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        android:id="@+id/view"
+        android:layout_marginLeft="0dp"
+        android:layout_above="@+id/expandableListView"
+        android:layout_alignEnd="@+id/button3"
+        android:layout_alignParentEnd="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0%"
+        android:id="@+id/textView7"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_alignParentEnd="true"
+        android:textSize="24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0%"
+        android:id="@+id/textView8"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_alignStart="@+id/textView7"
+        android:textSize="24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Section 1"
+        android:id="@+id/textView9"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
