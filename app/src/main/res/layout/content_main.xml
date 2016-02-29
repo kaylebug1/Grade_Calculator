@@ -63,7 +63,8 @@
         android:text="+ Add Course"
         android:id="@+id/button"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="20dp"
+        android:onClick="addCourse" />
 
 
 </LinearLayout>
