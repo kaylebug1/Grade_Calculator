@@ -5,11 +5,11 @@ package com.example.kayle.grade_calculator;
  */
 public class Calculator {
     public float calcGrade(Course course) {
-        return course.getSection(0).assignments.get(0).getPointsEarned();
+        return course.getSection(0).getAssignments().get(0).getPointsEarned();
     }
 
     public float projectNeededGrade(Course course, float grade) {
-        return course.getSection(0).assignments.get(0).getPointsEarned();
+        return course.getSection(0).getAssignments().get(0).getPointsEarned();
     }
 
     /*public float calcForGrade(Course course) {
