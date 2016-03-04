@@ -1,26 +1,32 @@
 package com.example.kayle.grade_calculator;
 
 /**
- * Created by Testare on 24-Feb-16.
+ * Data for an assignment
  */
 public class Assignment {
-    float getPointValue() {
-        return 0.0f;
+    private float pointValue, pointsEarned;
+
+    Assignment() {this(0.0f,0.0f);}
+    Assignment(float pointValue) {this(pointValue,0.0f);}
+    Assignment(float pointValue,float pointsEarned) {
+        this.pointValue = pointValue;
+        this.pointsEarned = pointsEarned;
     }
 
-    Assignment() {}
-    Assignment(float pointValue) {}
-    Assignment(float pointValue,float pointsEarned) {}
+
+    float getPointValue() {
+        return pointValue;
+    }
 
     void setPointValue(float f) {
-
+        this.pointValue=f;
     }
 
     float getPointsEarned() {
-        return 0.0f;
+        return pointsEarned;
     }
 
     void setPointsEarned(float f) {
-
+        this.pointsEarned = f;
     }
 }
