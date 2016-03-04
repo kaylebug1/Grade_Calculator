@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.EditText;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -113,42 +112,7 @@ public class CourseActivity extends AppCompatActivity {
             final TextView childTextView;
             if (child == null) {
                 childTextView = (TextView) convertView.findViewById(R.id.textViewParent);
-
-
-                //This is the "Add assignment" onclick. It creates a dialog
-                childTextView.setOnClickListener(new View.OnClickListener() {
-                    TextView addAssignmentTextview = childTextView;
-                    String sectionName = getGroup(groupPosition).getName();
-                    int sectionPosition = groupPosition;
-                    @Override
-                    public void onClick(View v) {
-                        if(v != addAssignmentTextview) {
-                            return;
-                        }
-                        System.out.println("Add an assignment to " + sectionName);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setTitle("Assignment name");
-                        final EditText input = new EditText(context);
-                        input.setInputType(InputType.TYPE_CLASS_TEXT);
-                        builder.setView(input);
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String assignmentName = input.getText().toString();
-                                getGroup(sectionPosition).addAssignment(new Assignment(assignmentName));
-                                notifyDataSetChanged();
-                                System.out.println("Added" + assignmentName);
-                            }
-                        });
-                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                        builder.show();
-                    }
-                });
+                childTextView.setOnClickListener(new AssignmentListener(childTextView,getGroup(groupPosition),this,context));
                 childTextView.setText("+");
 
             } else {
