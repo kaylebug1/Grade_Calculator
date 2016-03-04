@@ -25,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        /*findViewById(R.id.addCourseButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.addCourseButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, CourseActivity.class));
             }
-        });*/
+        });
     }
 
     @Override

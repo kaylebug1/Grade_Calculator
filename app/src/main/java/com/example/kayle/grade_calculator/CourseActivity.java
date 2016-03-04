@@ -22,13 +22,14 @@ public class CourseActivity extends AppCompatActivity {
 
     CourseActivityListAdapter calAdapter;
     Course c;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        context = this;
         c = new Course("Tiest");
         Section s = c.addSection();
         s.addAssignment(new Assignment("Leroy"));
@@ -38,9 +39,30 @@ public class CourseActivity extends AppCompatActivity {
         findViewById(R.id.addSectionButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addSection();
-                c.addSection();
-                calAdapter.notifyDataSetChanged();
+
+                System.out.println("Adding a section to " + c.getCourseName());
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Add Section");
+                final EditText input = new EditText(context);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setText("Section " + (c.getSectionCount() + 1));
+                builder.setView(input);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String sectionName = input.getText().toString();
+                        c.addSection(sectionName);
+                        calAdapter.notifyDataSetChanged();
+                        System.out.println("Added Section:" + sectionName);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
             }
         });
 
@@ -49,11 +71,6 @@ public class CourseActivity extends AppCompatActivity {
         ((ExpandableListView)findViewById(R.id.sectionListView)).setAdapter(calAdapter);
 
 
-    }
-
-    protected void addSection() {
-        ExpandableListView view = (ExpandableListView)findViewById(R.id.sectionListView);
-        ExpandableListAdapter listAdapter = view.getExpandableListAdapter();
     }
 
     private static class CourseActivityListAdapter extends BaseExpandableListAdapter {
@@ -128,7 +145,6 @@ public class CourseActivity extends AppCompatActivity {
                                 dialog.cancel();
                             }
                         });
-
                         builder.show();
                     }
                 });
