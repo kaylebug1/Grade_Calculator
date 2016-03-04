@@ -18,6 +18,10 @@ public class Course {
 
     }
 
+    public String getCourseName() {
+        return courseName;
+    }
+
     public void deleteSection(Section section){
         sections.remove(section);
     }

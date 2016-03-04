@@ -1,5 +1,6 @@
 package com.example.kayle.grade_calculator;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,7 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -22,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ((Button)findViewById(R.id.addCourseButton)).setOnClickListener(new View.OnClickListener() {
+        /*((Button)findViewById(R.id.addCourseButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,CourseActivity.class));
+                startActivity(new Intent(MainActivity.this, CourseActivity.class));
             }
-        });
+        });*/
     }
 
     @Override
@@ -53,7 +56,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addCourse(View v) {
-        String tempCourseName = "Course #" + courseList.size();
+        String tempCourseName = "Course #" + (courseList.size() + 1);
         courseList.add(new Course(tempCourseName));
+
+        ArrayList<String> tempCourses = new ArrayList<>();
+        for (int i = 0; i < courseList.size(); i++) {
+            tempCourses.add(courseList.get(i).getCourseName());
+        }
+
+        Context context = this;
+        ArrayAdapter<String> adapter;
+        ListView myListView = (ListView) findViewById(R.id.listView);
+
+        adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
+                tempCourses);
+
+        myListView.setAdapter(adapter);
     }
 }
