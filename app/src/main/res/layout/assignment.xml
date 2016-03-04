@@ -4,4 +4,5 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="10dp"
-    xmlns:android="http://schemas.android.com/apk/res/android" />
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textSize="20dp" />
