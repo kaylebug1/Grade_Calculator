@@ -109,21 +109,23 @@ public class CourseActivity extends AppCompatActivity {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 if(child != null) {
                     convertView = inflater.inflate(R.layout.assignment, parent, false);
-                } else {
-                    convertView = inflater.inflate(R.layout.add_assignment, parent, false);
                 }
             }
-            TextView childTextView;
+            final TextView childTextView;
             if (child == null) {
                 childTextView = (TextView) convertView.findViewById(R.id.textViewParent);
 
 
                 //This is the "Add assignment" onclick. It creates a dialog
                 childTextView.setOnClickListener(new View.OnClickListener() {
+                    TextView addAssignmentTextview = childTextView;
                     String sectionName = getGroup(groupPosition).getName();
                     int sectionPosition = groupPosition;
                     @Override
                     public void onClick(View v) {
+                        if(v != addAssignmentTextview) {
+                            return;
+                        }
                         System.out.println("Add an assignment to " + sectionName);
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("Assignment name");
