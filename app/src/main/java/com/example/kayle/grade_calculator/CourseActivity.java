@@ -1,25 +1,21 @@
 package com.example.kayle.grade_calculator;
 
-import android.app.ExpandableListActivity;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.database.DataSetObserver;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class CourseActivity extends AppCompatActivity {
@@ -44,6 +40,7 @@ public class CourseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 addSection();
                 c.addSection();
+                calAdapter.notifyDataSetChanged();
             }
         });
 
@@ -93,16 +90,46 @@ public class CourseActivity extends AppCompatActivity {
             Assignment child = getChild(groupPosition, childPosition);
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.section_header, parent, false);
+                if(child != null) {
+                    convertView = inflater.inflate(R.layout.assignment, parent, false);
+                } else {
+                    convertView = inflater.inflate(R.layout.add_assignment, parent, false);
+                }
             }
             TextView childTextView;
             if (child == null) {
                 childTextView = (TextView) convertView.findViewById(R.id.textViewParent);
+
+
+                //This is the "Add assignment" onclick. It creates a dialog
                 childTextView.setOnClickListener(new View.OnClickListener() {
                     String sectionName = getGroup(groupPosition).getName();
+                    int sectionPosition = groupPosition;
                     @Override
                     public void onClick(View v) {
                         System.out.println("Add an assignment to " + sectionName);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setTitle("Assignment name");
+                        final EditText input = new EditText(context);
+                        input.setInputType(InputType.TYPE_CLASS_TEXT);
+                        builder.setView(input);
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String assignmentName = input.getText().toString();
+                                getGroup(sectionPosition).addAssignment(new Assignment(assignmentName));
+                                notifyDataSetChanged();
+                                System.out.println("Added" + assignmentName);
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        builder.show();
                     }
                 });
                 childTextView.setText("+");
