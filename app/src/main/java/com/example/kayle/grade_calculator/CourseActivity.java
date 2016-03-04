@@ -107,9 +107,8 @@ public class CourseActivity extends AppCompatActivity {
             Assignment child = getChild(groupPosition, childPosition);
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                if(child != null) {
-                    convertView = inflater.inflate(R.layout.assignment, parent, false);
-                }
+                convertView = inflater.inflate(R.layout.assignment, parent, false);
+
             }
             final TextView childTextView;
             if (child == null) {
