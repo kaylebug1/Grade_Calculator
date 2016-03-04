@@ -12,10 +12,9 @@ public class Course {
     }
 
     public Section addSection(){
-        Section s = new Section();
+        Section s = new Section(sections.size() + 1);
         sections.add(s);
         return s;
-
     }
 
     public String getCourseName() {
@@ -27,6 +26,9 @@ public class Course {
     }
 
     public Section getSection(int i) {
-        return new Section();
+        return sections.get(i);
+    }
+    public int getSectionCount() {
+        return sections.size();
     }
 }

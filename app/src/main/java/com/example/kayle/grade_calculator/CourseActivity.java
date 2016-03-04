@@ -25,31 +25,27 @@ import java.util.List;
 public class CourseActivity extends AppCompatActivity {
 
     CourseActivityListAdapter calAdapter;
-
+    Course c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ((Button)findViewById(R.id.addSectionButton)).setOnClickListener(new View.OnClickListener() {
+
+        c = new Course("Tiest");
+        c.addSection().addAssignment(new Assignment("Death", 1.0f, 2.0f));
+        c.addSection().addAssignment(new Assignment("Izzap", 3.0f, 4.0f));
+        findViewById(R.id.addSectionButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 addSection();
+                c.addSection();
             }
         });
-        HashMap<String,List<String>> testData = new HashMap<>();
-        ArrayList<String> testList = new ArrayList<>();
-        testList.add("cake");
-        testList.add("Pizza");
-        testData.put("Foo", testList);
-        testList = new ArrayList<>();
-        testList.add("more cake");
-        testList.add("less pizza");
-        testData.put("Foo2", testList);
 
-        calAdapter = new CourseActivityListAdapter(this,testData,new ArrayList<>(testData.keySet()));
+        ((TextView)findViewById(R.id.courseTitle)).setText(c.getCourseName());
+        calAdapter = new CourseActivityListAdapter(this,c);
         ((ExpandableListView)findViewById(R.id.sectionListView)).setAdapter(calAdapter);
 
 
@@ -62,15 +58,12 @@ public class CourseActivity extends AppCompatActivity {
 
     private static class CourseActivityListAdapter extends BaseExpandableListAdapter {
         private Context context;
-        private HashMap<String, List<String>> sectionHashMap;
-        private List<String> sections;
+        private Course course;
 
         CourseActivityListAdapter(Context context,
-                                  HashMap<String,List<String>> hashMap,
-                                  List<String> list) {
+                                  Course crs) {
             this.context = context;
-            this.sectionHashMap = hashMap;
-            this.sections = list;
+            this.course = crs;
         }
 
         @Override
@@ -78,7 +71,7 @@ public class CourseActivity extends AppCompatActivity {
                                  boolean isExpanded,
                                  View convertView,
                                  ViewGroup parent) {
-            String groupTitle = (String) getGroup(groupPostion);
+            String groupTitle = getGroup(groupPostion).getName();
             if(convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.section_header,parent,false);
@@ -89,18 +82,33 @@ public class CourseActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getChildView(int groupPosition,
+        public View getChildView(final int groupPosition,
                                  int childPosition,
                                  boolean isLastChild,
                                  View convertView,
                                  ViewGroup parent) {
-            String childTitle = (String) getChild(groupPosition, childPosition);
-            if(convertView == null) {
+            Assignment child = getChild(groupPosition, childPosition);
+            if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.section_header,parent,false);
+                convertView = inflater.inflate(R.layout.section_header, parent, false);
             }
-            TextView childTextView = (TextView)convertView.findViewById(R.id.textViewParent);
-            childTextView.setText(childTitle);
+            TextView childTextView;
+            if (child == null) {
+                childTextView = (TextView) convertView.findViewById(R.id.textViewParent);
+                childTextView.setOnClickListener(new View.OnClickListener() {
+                    String sectionName = getGroup(groupPosition).getName();
+                    @Override
+                    public void onClick(View v) {
+                        System.out.println("Add an assignment to " + sectionName);
+                    }
+                });
+                childTextView.setText("+");
+
+            } else {
+                String childTitle = child.getName();
+                childTextView = (TextView) convertView.findViewById(R.id.textViewParent);
+                childTextView.setText(childTitle);
+            }
             return childTextView;
         }
 
@@ -111,7 +119,7 @@ public class CourseActivity extends AppCompatActivity {
 
         @Override
         public int getGroupCount() {
-            return sections.size();
+            return course.getSectionCount();
         }
 
         @Override
@@ -125,8 +133,11 @@ public class CourseActivity extends AppCompatActivity {
         }
 
         @Override
-        public String getChild(int groupPos, int childPos) {
-            return sectionHashMap.get(sections.get(groupPos)).get(childPos);
+        public Assignment getChild(int groupPos, int childPos) {
+//            return sectionHashMap.get(sections.get(groupPos)).get(childPos);
+            List<Assignment> assignments= getGroup(groupPos).getAssignments();
+            if(assignments.size() == childPos) { return null; }
+            return assignments.get(childPos);
         }
 
         @Override
@@ -135,13 +146,13 @@ public class CourseActivity extends AppCompatActivity {
         }
 
         @Override
-        public String getGroup(int groupPos) {
-            return sections.get(groupPos);
+        public Section getGroup(int groupPos) {
+            return course.getSection(groupPos);
         }
 
         @Override
         public int getChildrenCount(int groupPos) {
-            return sectionHashMap.get(sections.get(groupPos)).size();
+            return (getGroup(groupPos).getAssignments().size() + 1);
         }
     }
 }

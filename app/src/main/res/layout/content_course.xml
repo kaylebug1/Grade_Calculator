@@ -117,7 +117,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Section 1"
-        android:id="@+id/textView9"
+        android:id="@+id/courseTitle"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
