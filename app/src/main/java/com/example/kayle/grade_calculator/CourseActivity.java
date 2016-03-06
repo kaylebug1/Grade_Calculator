@@ -3,6 +3,7 @@ package com.example.kayle.grade_calculator;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -69,7 +70,7 @@ public class CourseActivity extends AppCompatActivity {
         calAdapter = new CourseActivityListAdapter(this,c);
         ((ExpandableListView)findViewById(R.id.sectionListView)).setAdapter(calAdapter);
 
-
+        Intent intent = getIntent();
     }
 
     private static class CourseActivityListAdapter extends BaseExpandableListAdapter {
