@@ -3,6 +3,7 @@ package com.example.kayle.grade_calculator;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.EditText;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -22,13 +22,14 @@ public class CourseActivity extends AppCompatActivity {
 
     CourseActivityListAdapter calAdapter;
     Course c;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        context = this;
         c = new Course("Tiest");
         Section s = c.addSection();
         s.addAssignment(new Assignment("Leroy"));
@@ -38,9 +39,30 @@ public class CourseActivity extends AppCompatActivity {
         findViewById(R.id.addSectionButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addSection();
-                c.addSection();
-                calAdapter.notifyDataSetChanged();
+
+                System.out.println("Adding a section to " + c.getCourseName());
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Add Section");
+                final EditText input = new EditText(context);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setText("Section " + (c.getSectionCount() + 1));
+                builder.setView(input);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String sectionName = input.getText().toString();
+                        c.addSection(sectionName);
+                        calAdapter.notifyDataSetChanged();
+                        System.out.println("Added Section:" + sectionName);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
             }
         });
 
@@ -48,12 +70,7 @@ public class CourseActivity extends AppCompatActivity {
         calAdapter = new CourseActivityListAdapter(this,c);
         ((ExpandableListView)findViewById(R.id.sectionListView)).setAdapter(calAdapter);
 
-
-    }
-
-    protected void addSection() {
-        ExpandableListView view = (ExpandableListView)findViewById(R.id.sectionListView);
-        ExpandableListAdapter listAdapter = view.getExpandableListAdapter();
+        Intent intent = getIntent();
     }
 
     private static class CourseActivityListAdapter extends BaseExpandableListAdapter {
@@ -90,48 +107,13 @@ public class CourseActivity extends AppCompatActivity {
             Assignment child = getChild(groupPosition, childPosition);
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                if(child != null) {
-                    convertView = inflater.inflate(R.layout.assignment, parent, false);
-                } else {
-                    convertView = inflater.inflate(R.layout.add_assignment, parent, false);
-                }
+                convertView = inflater.inflate(R.layout.assignment, parent, false);
+
             }
-            TextView childTextView;
+            final TextView childTextView;
             if (child == null) {
                 childTextView = (TextView) convertView.findViewById(R.id.textViewParent);
-
-
-                //This is the "Add assignment" onclick. It creates a dialog
-                childTextView.setOnClickListener(new View.OnClickListener() {
-                    String sectionName = getGroup(groupPosition).getName();
-                    int sectionPosition = groupPosition;
-                    @Override
-                    public void onClick(View v) {
-                        System.out.println("Add an assignment to " + sectionName);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setTitle("Assignment name");
-                        final EditText input = new EditText(context);
-                        input.setInputType(InputType.TYPE_CLASS_TEXT);
-                        builder.setView(input);
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String assignmentName = input.getText().toString();
-                                getGroup(sectionPosition).addAssignment(new Assignment(assignmentName));
-                                notifyDataSetChanged();
-                                System.out.println("Added" + assignmentName);
-                            }
-                        });
-                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-
-                        builder.show();
-                    }
-                });
+                childTextView.setOnClickListener(new AssignmentListener(childTextView,getGroup(groupPosition),this,context));
                 childTextView.setText("+");
 
             } else {

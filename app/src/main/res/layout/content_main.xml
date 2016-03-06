@@ -11,7 +11,8 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.kayle.grade_calculator.MainActivity"
     tools:showIn="@layout/activity_main"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:clickable="true">
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,7 +53,7 @@
         android:layout_width="300dp"
         android:layout_height="154dp"
         android:id="@+id/listView"
-        android:layout_weight="0.53"
+        android:layout_weight="0.76"
         android:layout_marginLeft="40dp" />
 
 
@@ -64,7 +65,7 @@
         android:id="@+id/addCourseButton"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
-        android:onClick="addCourse" />
+        android:onClick="addCourseButton" />
 
 
 </LinearLayout>

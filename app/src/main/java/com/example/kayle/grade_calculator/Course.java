@@ -16,6 +16,11 @@ public class Course {
         sections.add(s);
         return s;
     }
+    public Section addSection(String name) {
+        Section s = new Section(name);
+        sections.add(s);
+        return s;
+    }
 
     public String getCourseName() {
         return courseName;
