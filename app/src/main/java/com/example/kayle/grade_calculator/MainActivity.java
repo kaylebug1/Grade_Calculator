@@ -20,10 +20,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<Course> courseList = new ArrayList<>();
+//    private ArrayList<Course> courseList = new ArrayList<>();
     Context context;
+    public final static String EXTRA_MESSAGE = "com.example.steve.grade_calculator.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +42,16 @@ public class MainActivity extends AppCompatActivity {
                 builder.setTitle("Add Course");
                 final EditText input = new EditText(context);
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
+                List<Course> courseList = Course.getCourseList();
                 input.setText("Course #" + (courseList.size() + 1));
                 builder.setView(input);
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String courseName = input.getText().toString();
-                        courseList.add(new Course(courseName));
 
+                        Course.addNewCourse(courseName);
+                        List<Course> courseList = Course.getCourseList();
                         ArrayList<String> tempCourses = new ArrayList<>();
                         for (int i = 0; i < courseList.size(); i++) {
                             tempCourses.add(courseList.get(i).getCourseName());
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, CourseActivity.class);
+                Course.setActiveCourse(Course.getCourseList().get(position));
                 startActivity(intent);
             }
         });
