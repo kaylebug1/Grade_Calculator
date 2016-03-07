@@ -25,6 +25,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 //    private ArrayList<Course> courseList = new ArrayList<>();
     Context context;
+    public final static String EXTRA_MESSAGE = "com.example.steve.grade_calculator.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +42,13 @@ public class MainActivity extends AppCompatActivity {
                 builder.setTitle("Add Course");
                 final EditText input = new EditText(context);
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
-
-                List<Course> courseList = Course.getCourseList();
                 input.setText("Course #" + (courseList.size() + 1));
                 builder.setView(input);
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                         String courseName = input.getText().toString();
-                        Course.addNewCourse(courseName);
-                        List<Course> courseList = Course.getCourseList();
+                        courseList.add(new Course(courseName));
 
                         ArrayList<String> tempCourses = new ArrayList<>();
                         for (int i = 0; i < courseList.size(); i++) {

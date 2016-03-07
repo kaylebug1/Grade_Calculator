@@ -29,6 +29,10 @@ public class CourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_course);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        String courseName = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+
         context = this;
         c = Course.getActiveCourse();
         findViewById(R.id.addSectionButton).setOnClickListener(new View.OnClickListener() {
