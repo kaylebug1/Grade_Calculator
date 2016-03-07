@@ -30,12 +30,7 @@ public class CourseActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         context = this;
-        c = new Course("Tiest");
-        Section s = c.addSection();
-        s.addAssignment(new Assignment("Leroy"));
-        s.addAssignment(new Assignment("Lemon"));
-        c.addSection().addAssignment(new Assignment("Death", 1.0f, 2.0f));
-        c.addSection().addAssignment(new Assignment("Izzap", 3.0f, 4.0f));
+        c = Course.getActiveCourse();
         findViewById(R.id.addSectionButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
