@@ -68,8 +68,6 @@ public class CourseActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.courseTitle)).setText(c.getCourseName());
         calAdapter = new CourseActivityListAdapter(this,c);
         ((ExpandableListView)findViewById(R.id.sectionListView)).setAdapter(calAdapter);
-
-        Intent intent = getIntent();
     }
 
     private static class CourseActivityListAdapter extends BaseExpandableListAdapter {
