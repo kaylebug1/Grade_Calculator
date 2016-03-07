@@ -24,6 +24,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private ArrayList<Course> courseList = new ArrayList<>();
     Context context;
+    public final static String EXTRA_MESSAGE = "com.example.steve.grade_calculator.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, CourseActivity.class);
+                String temp = courseList.get(position).getCourseName();
+                intent.putExtra(EXTRA_MESSAGE, temp);
+
                 startActivity(intent);
             }
         });

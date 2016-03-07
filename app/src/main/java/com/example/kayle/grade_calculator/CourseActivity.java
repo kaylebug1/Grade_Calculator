@@ -29,8 +29,12 @@ public class CourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_course);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        String courseName = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+
         context = this;
-        c = new Course("Tiest");
+        c = new Course(courseName/*"Tiest"*/);
         Section s = c.addSection();
         s.addAssignment(new Assignment("Leroy"));
         s.addAssignment(new Assignment("Lemon"));
@@ -70,7 +74,6 @@ public class CourseActivity extends AppCompatActivity {
         calAdapter = new CourseActivityListAdapter(this,c);
         ((ExpandableListView)findViewById(R.id.sectionListView)).setAdapter(calAdapter);
 
-        Intent intent = getIntent();
     }
 
     private static class CourseActivityListAdapter extends BaseExpandableListAdapter {
