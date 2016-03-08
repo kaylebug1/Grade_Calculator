@@ -7,7 +7,6 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.EditText;
-import android.widget.ExpandableListAdapter;
 import android.widget.TextView;
 
 /**
@@ -43,14 +42,39 @@ public class AssignmentListener implements View.OnClickListener{
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String assignmentName = input.getText().toString();
-                if(assignmentName.equals("+")) {
+                final String assignmentName = input.getText().toString();
+                if (assignmentName.equals("+")) {
                     input.setText("++");
                     return;
                 }
-                section.addAssignment(new Assignment(assignmentName));
+
+
+                AlertDialog.Builder builderNum = new AlertDialog.Builder(context);
+                builderNum.setTitle("Assignment grade");
+                final EditText inputNum = new EditText(context);
+                inputNum.setInputType(InputType.TYPE_CLASS_TEXT);
+                builderNum.setView(inputNum);
+                builderNum.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        float assignmentNum = Float.valueOf(inputNum.getText().toString());
+                        Assignment a = new Assignment(assignmentName, assignmentNum);
+                        section.addAssignment(a);
+                        ela.notifyDataSetChanged();
+                        System.out.println("Grade  " + assignmentNum);
+                    }
+                });
+
+                builderNum.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builderNum.show();
+
                 ela.notifyDataSetChanged();
-                System.out.println("Added" + assignmentName);
+                System.out.println("Added " + assignmentName);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -59,6 +83,9 @@ public class AssignmentListener implements View.OnClickListener{
                 dialog.cancel();
             }
         });
+
+
+
         builder.show();
     }
 }

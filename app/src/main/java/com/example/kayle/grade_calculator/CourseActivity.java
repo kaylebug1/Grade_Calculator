@@ -70,7 +70,7 @@ public class CourseActivity extends AppCompatActivity {
         ((ExpandableListView)findViewById(R.id.sectionListView)).setAdapter(calAdapter);
     }
 
-    private static class CourseActivityListAdapter extends BaseExpandableListAdapter {
+    private class CourseActivityListAdapter extends BaseExpandableListAdapter {
         private Context context;
         private Course course;
 
@@ -90,7 +90,7 @@ public class CourseActivity extends AppCompatActivity {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.section_header,parent,false);
             }
-            TextView parentTextView = (TextView)convertView.findViewById(R.id.textViewParent);
+            TextView parentTextView = (TextView)convertView.findViewById(R.id.TextViewParent);
             parentTextView.setText(groupTitle);
             return convertView;
         }
@@ -108,15 +108,23 @@ public class CourseActivity extends AppCompatActivity {
 
             }
             final TextView childTextView;
+            final TextView childPointsView;
             if (child == null) {
-                childTextView = (TextView) convertView.findViewById(R.id.textViewParent);
+                childTextView = (TextView) convertView.findViewById(R.id.TextViewParent);
                 childTextView.setOnClickListener(new AssignmentListener(childTextView,getGroup(groupPosition),this,context));
                 childTextView.setText("+");
 
             } else {
                 String childTitle = child.getName();
-                childTextView = (TextView) convertView.findViewById(R.id.textViewParent);
+                String points = String.format("%.2f", child.getPointValue());
+                childTextView = (TextView) convertView.findViewById(R.id.TextViewParent);
                 childTextView.setText(childTitle);
+                setContentView(R.layout.activity_course);
+                childPointsView = (TextView) findViewById(R.id.assignmentPercent);
+                if(childPointsView != null) {
+                    childPointsView.setText(points);
+                }
+
             }
             return childTextView;
         }
