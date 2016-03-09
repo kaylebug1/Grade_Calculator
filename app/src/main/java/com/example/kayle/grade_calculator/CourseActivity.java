@@ -87,10 +87,12 @@ public class CourseActivity extends AppCompatActivity {
                                  View convertView,
                                  ViewGroup parent) {
             String groupTitle = getGroup(groupPostion).getName();
+
             if(convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.section_header,parent,false);
             }
+
             TextView parentTextView = (TextView)convertView.findViewById(R.id.SectionName);
             parentTextView.setText(groupTitle);
             return convertView;

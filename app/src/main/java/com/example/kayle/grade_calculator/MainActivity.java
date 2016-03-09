@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                         adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
                                 tempCourses);
 
+                        Log.i("Steve Info Tag", "Course added!");
                         myListView.setAdapter(adapter);
                     }
                 });
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, CourseActivity.class);
                 Course.setActiveCourse(Course.getCourseList().get(position));
+                Log.i("Steve Info Tag", "SetOnItemClick clicked!");
                 startActivity(intent);
             }
         });
