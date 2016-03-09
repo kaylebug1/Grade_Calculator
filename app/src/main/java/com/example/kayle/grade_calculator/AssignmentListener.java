@@ -30,11 +30,12 @@ public class AssignmentListener implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         //If it is not a plus, we don't want it to add things
-        if(!((TextView)v).getText().equals("+"))
+        if(!((TextView)v.findViewById(R.id.AssignmentName)).getText().equals("+"))
         {
+            Log.i("Onclick", "That was not a plus sign");
             return;
         }
-        System.out.println("Add an assignment to " + section.getName());
+        Log.i("Onclick","Add an assignment to " + section.getName());
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Assignment name");
         final EditText input = new EditText(context);
@@ -48,8 +49,6 @@ public class AssignmentListener implements View.OnClickListener{
                     input.setText("++");
                     return;
                 }
-
-
                 AlertDialog.Builder builderNum = new AlertDialog.Builder(context);
                 builderNum.setTitle("Assignment grade");
                 final EditText inputNum = new EditText(context);
@@ -58,12 +57,17 @@ public class AssignmentListener implements View.OnClickListener{
                 builderNum.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        float assignmentNum = Float.valueOf(inputNum.getText().toString());
-                        Log.i("Tag1", String.valueOf(assignmentNum));
-                        Assignment a = new Assignment(assignmentName, assignmentNum);
-                        section.addAssignment(a);
-                        ela.notifyDataSetChanged();
-                        System.out.println("Grade  " + assignmentNum);
+                        try {
+                            float assignmentNum = Float.valueOf(inputNum.getText().toString());
+
+                            Log.i("Tag1", String.valueOf(assignmentNum));
+                            Assignment a = new Assignment(assignmentName, assignmentNum);
+                            section.addAssignment(a);
+                            ela.notifyDataSetChanged();
+                            Log.d(AssignmentListener.class.toString(), "Grade  " + assignmentNum);
+                        } catch (NumberFormatException e) {
+                            Log.e("AssignmentListener", "THAT IS /NOT/ A NUMBER");
+                        }
                     }
                 });
 
@@ -74,7 +78,6 @@ public class AssignmentListener implements View.OnClickListener{
                     }
                 });
                 builderNum.show();
-
                 ela.notifyDataSetChanged();
                 System.out.println("Added " + assignmentName);
             }

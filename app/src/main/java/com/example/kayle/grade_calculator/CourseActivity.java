@@ -115,6 +115,8 @@ public class CourseActivity extends AppCompatActivity {
                 childTextView = (TextView) convertView.findViewById(R.id.AssignmentName);
                 childTextView.setOnClickListener(new AssignmentListener(childTextView,getGroup(groupPosition),this,context));
                 childTextView.setText("+");
+                childPointsView = (TextView) convertView.findViewById(R.id.percent);
+                childPointsView.setText("");
 
             } else {
                 String childTitle = child.getName();
@@ -129,7 +131,7 @@ public class CourseActivity extends AppCompatActivity {
                     childPointsView.setText(points);
                 }
                 else{
-                    Log.e("Tag","Percent is not showing correctly");
+                    Log.e("Tag", "Percent is not showing correctly");
                 }
                 //setContentView(R.layout.activity_course);
             }
