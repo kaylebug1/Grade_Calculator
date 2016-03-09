@@ -125,14 +125,15 @@ public class CourseActivity extends AppCompatActivity {
                 childPointsView = (TextView) convertView.findViewById(R.id.percent);
                 if(childPointsView != null) {
                     Log.i("Tag1","Percent is not null");
+                    points += "%";
                     childPointsView.setText(points);
                 }
                 else{
-                    Log.i("Tag","Percent is null");
+                    Log.e("Tag","Percent is not showing correctly");
                 }
                 //setContentView(R.layout.activity_course);
             }
-            return childTextView;
+            return convertView;
         }
 
         @Override
