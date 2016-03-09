@@ -60,13 +60,13 @@ public class AssignmentListener implements View.OnClickListener{
                         try {
                             float assignmentNum = Float.valueOf(inputNum.getText().toString());
 
-                            Log.i("Tag1", String.valueOf(assignmentNum));
+                            Log.i("Onclick", String.valueOf(assignmentNum));
                             Assignment a = new Assignment(assignmentName, assignmentNum);
                             section.addAssignment(a);
                             ela.notifyDataSetChanged();
                             Log.d(AssignmentListener.class.toString(), "Grade  " + assignmentNum);
                         } catch (NumberFormatException e) {
-                            Log.e("AssignmentListener", "THAT IS /NOT/ A NUMBER");
+                            Log.e("Onclick", "THAT IS /NOT/ A NUMBER");
                         }
                     }
                 });
