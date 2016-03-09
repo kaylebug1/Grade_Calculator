@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/TextViewParent"
+        android:id="@+id/AssignmentName"
         android:clickable="false"
         android:textColor="@android:color/black"
         android:textSize="24sp"
@@ -23,8 +23,17 @@
         android:layout_height="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/assignmentPercent"
-        android:layout_alignBottom="@+id/TextViewParent"
+        android:id="@+id/percent"
+        android:layout_alignBottom="@+id/AssignmentName"
         android:layout_alignParentEnd="true"
         android:text="%" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Random Text"
+        android:id="@+id/textView9"
+        android:layout_below="@+id/AssignmentName"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

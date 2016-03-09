@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +91,7 @@ public class CourseActivity extends AppCompatActivity {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.section_header,parent,false);
             }
-            TextView parentTextView = (TextView)convertView.findViewById(R.id.TextViewParent);
+            TextView parentTextView = (TextView)convertView.findViewById(R.id.SectionName);
             parentTextView.setText(groupTitle);
             return convertView;
         }
@@ -103,6 +104,7 @@ public class CourseActivity extends AppCompatActivity {
                                  ViewGroup parent) {
             Assignment child = getChild(groupPosition, childPosition);
             if (convertView == null) {
+                Log.i("Log1","ConvertView is null");
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.assignment, parent, false);
 
@@ -110,21 +112,25 @@ public class CourseActivity extends AppCompatActivity {
             final TextView childTextView;
             final TextView childPointsView;
             if (child == null) {
-                childTextView = (TextView) convertView.findViewById(R.id.TextViewParent);
+                childTextView = (TextView) convertView.findViewById(R.id.AssignmentName);
                 childTextView.setOnClickListener(new AssignmentListener(childTextView,getGroup(groupPosition),this,context));
                 childTextView.setText("+");
 
             } else {
                 String childTitle = child.getName();
                 String points = String.format("%.2f", child.getPointValue());
-                childTextView = (TextView) convertView.findViewById(R.id.TextViewParent);
+                childTextView = (TextView) convertView.findViewById(R.id.AssignmentName);
                 childTextView.setText(childTitle);
-                setContentView(R.layout.activity_course);
-                childPointsView = (TextView) findViewById(R.id.assignmentPercent);
+
+                childPointsView = (TextView) convertView.findViewById(R.id.percent);
                 if(childPointsView != null) {
+                    Log.i("Tag1","Percent is not null");
                     childPointsView.setText(points);
                 }
-
+                else{
+                    Log.i("Tag","Percent is null");
+                }
+                //setContentView(R.layout.activity_course);
             }
             return childTextView;
         }

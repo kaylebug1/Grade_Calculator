@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.EditText;
@@ -58,6 +59,7 @@ public class AssignmentListener implements View.OnClickListener{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         float assignmentNum = Float.valueOf(inputNum.getText().toString());
+                        Log.i("Tag1", String.valueOf(assignmentNum));
                         Assignment a = new Assignment(assignmentName, assignmentNum);
                         section.addAssignment(a);
                         ela.notifyDataSetChanged();

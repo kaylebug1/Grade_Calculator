@@ -12,7 +12,7 @@
     android:paddingBottom="10dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:text="Section 1"
-    android:id="@+id/TextViewParent"
+    android:id="@+id/SectionName"
     android:clickable="false"
     android:textColor="@android:color/black"
     android:textSize="24sp"
@@ -23,7 +23,7 @@
     android:layout_height="1dp"
     android:background="@android:color/black"
     android:id="@+id/view"
-    android:layout_below="@+id/TextViewParent"
+    android:layout_below="@+id/AssignmentName"
     android:layout_alignParentStart="true" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/textView10"
-        android:layout_below="@+id/TextViewParent"
+        android:layout_below="@+id/AssignmentName"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -42,6 +42,6 @@
         android:id="@+id/sectionPercent"
         android:layout_marginEnd="49dp"
         android:textSize="24sp"
-        android:layout_alignTop="@+id/TextViewParent"
+        android:layout_alignTop="@+id/AssignmentName"
         android:layout_alignEnd="@+id/view" />
 </RelativeLayout>

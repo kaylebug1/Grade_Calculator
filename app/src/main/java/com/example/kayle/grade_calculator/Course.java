@@ -1,9 +1,7 @@
 package com.example.kayle.grade_calculator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Course {
 
@@ -45,8 +43,9 @@ public class Course {
     public static void setActiveCourse(Course c) {
         if(courseList.contains(c))
             activeCourse = c;
-        else
+        else {
             throw new RuntimeException("That course doesn't belong there!");
+        }
     }
 
     /**
