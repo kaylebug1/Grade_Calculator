@@ -26,7 +26,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 //    private ArrayList<Course> courseList = new ArrayList<>();
     Context context;
-    public final static String EXTRA_MESSAGE = "com.example.steve.grade_calculator.MESSAGE";
+    //public final static String EXTRA_MESSAGE = "com.example.steve.grade_calculator.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -19,7 +19,7 @@
         android:layout_marginBottom="194dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/button3"
+        android:layout_below="@+id/settingsButton"
         android:layout_alignParentEnd="false" />
 
     <TextView
@@ -63,9 +63,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settings"
-        android:id="@+id/button3"
+        android:id="@+id/settingsButton"
         android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/sectionListView" />
+        android:layout_alignEnd="@+id/sectionListView"
+        android:onClick="settingsClick" />
     <View
         android:layout_width="400dp"
         android:layout_height="1dp"
@@ -73,7 +74,7 @@
         android:id="@+id/view"
         android:layout_marginLeft="0dp"
         android:layout_above="@+id/sectionListView"
-        android:layout_alignEnd="@+id/button3"
+        android:layout_alignEnd="@+id/settingsButton"
         android:layout_alignParentEnd="false" />
 
     <TextView
