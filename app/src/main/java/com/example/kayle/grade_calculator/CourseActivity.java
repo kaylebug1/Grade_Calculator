@@ -31,8 +31,8 @@ public class CourseActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Intent intent = getIntent();
-        String courseName = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        //Intent intent = getIntent();
+        //String courseName = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
         context = this;
         c = Course.getActiveCourse();
@@ -75,6 +75,14 @@ public class CourseActivity extends AppCompatActivity {
                     }
                 });
                 builder.show();
+            }
+        });
+
+        findViewById(R.id.settingsButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CourseActivity.this, SettingsActivity.class);
+                startActivity(intent);
             }
         });
 

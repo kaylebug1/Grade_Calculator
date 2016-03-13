@@ -62,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ok"
-        android:id="@+id/button4"
+        android:id="@+id/okButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="68dp" />
@@ -71,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Reset"
-        android:id="@+id/button5"
-        android:layout_alignTop="@+id/button4"
+        android:id="@+id/resetButton"
+        android:layout_alignTop="@+id/okButton"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
