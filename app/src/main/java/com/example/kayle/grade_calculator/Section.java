@@ -13,11 +13,15 @@ public class Section {
 
     private ArrayList<Assignment> assignments = new ArrayList<>();
     private String name;
-    Section(String name) {
+    private float weight;
+    Section(String name, float w)
+    {
         this.name = name;
+        this.weight = w;
     }
-    Section(int i) {
+    Section(int i, float w) {
         this.name = "Section " + i;
+        this.weight = w;
     }
     public void addAssignment(Assignment a) {
         assignments.add(a);
@@ -32,12 +36,12 @@ public class Section {
     }
 
     public float getWeight () {
-        return 0.0f;
+        return weight;
     }
 
 
     public void setWeight (float f) {
-
+        this.weight = f;
     }
 
     public void setName(String name) { this.name = name;}

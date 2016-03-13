@@ -66,12 +66,12 @@ public class Course {
     }
 
     public Section addSection(){
-        Section s = new Section(sections.size() + 1);
+        Section s = new Section(sections.size() + 1,0);
         sections.add(s);
         return s;
     }
-    public Section addSection(String name) {
-        Section s = new Section(name);
+    public Section addSection(String name, Float w) {
+        Section s = new Section(name, w);
         sections.add(s);
         return s;
     }

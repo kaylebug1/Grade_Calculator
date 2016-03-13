@@ -40,7 +40,7 @@ public class CourseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                System.out.println("Adding a section to " + c.getCourseName());
+                Log.i("Tag", "Adding a section to " + c.getCourseName());
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Add Section");
                 final EditText input = new EditText(context);
@@ -50,10 +50,22 @@ public class CourseActivity extends AppCompatActivity {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String sectionName = input.getText().toString();
-                        c.addSection(sectionName);
-                        calAdapter.notifyDataSetChanged();
-                        System.out.println("Added Section:" + sectionName);
+                        AlertDialog.Builder builderPer = new AlertDialog.Builder(context);
+                        builderPer.setTitle("Section weight");
+                        final EditText inputPercent = new EditText(context);
+                        inputPercent.setInputType(InputType.TYPE_CLASS_TEXT);
+                        builderPer.setView(inputPercent);
+                        builderPer.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String sectionName = input.getText().toString();
+                                Float sectionWeight = Float.valueOf(inputPercent.getText().toString());
+                                c.addSection(sectionName, sectionWeight);
+                                calAdapter.notifyDataSetChanged();
+                                Log.i("Tag", "Added Section:" + sectionName + sectionWeight);
+                            }
+                        });
+                        builderPer.show();
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -87,6 +99,7 @@ public class CourseActivity extends AppCompatActivity {
                                  View convertView,
                                  ViewGroup parent) {
             String groupTitle = getGroup(groupPostion).getName();
+            Float groupPer = getGroup((groupPostion)).getWeight();
 
             if(convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -95,6 +108,8 @@ public class CourseActivity extends AppCompatActivity {
 
             TextView parentTextView = (TextView)convertView.findViewById(R.id.SectionName);
             parentTextView.setText(groupTitle);
+            TextView per = (TextView)convertView.findViewById(R.id.sectionPercent);
+            per.setText((groupPer).toString());
             return convertView;
         }
 
