@@ -25,9 +25,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The main activity keeps track of the various courses
+ */
 public class MainActivity extends AppCompatActivity {
 //    private ArrayList<Course> courseList = new ArrayList<>();
-    Context context;
+    private Context context;
     //public final static String EXTRA_MESSAGE = "com.example.steve.grade_calculator.MESSAGE";
 
     @Override
@@ -135,6 +138,9 @@ public class MainActivity extends AppCompatActivity {
         });*/
     }
 
+    /**
+     * When this activity is closed, it saves the data
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
