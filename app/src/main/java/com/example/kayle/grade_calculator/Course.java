@@ -1,5 +1,7 @@
 package com.example.kayle.grade_calculator;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,13 @@ public class Course {
 
     static {
         loadCourselist();
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Log.i("Salmon", "Hey look the hook is called");
+            }
+        }));
     }
 
     private static void loadCourselist() {
