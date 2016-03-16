@@ -86,6 +86,51 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //myListView.setLongClickable(true);
+        /*myListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           final int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Change Course Name");
+                final EditText input = new EditText(context);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setText(Course.getCourseList().get(position).getCourseName());
+                builder.setView(input);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String courseName = input.getText().toString();
+                        Course.getCourseList().get(position).setCourseName(courseName);
+
+                        //Course.addNewCourse(courseName);
+                        List<Course> courseList = Course.getCourseList();
+                        ArrayList<String> tempCourses = new ArrayList<>();
+                        for (int i = 0; i < courseList.size(); i++) {
+                            tempCourses.add(courseList.get(i).getCourseName());
+                        }
+
+                        ArrayAdapter<String> adapter;
+
+                        adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
+                                tempCourses);
+
+                        Log.i("Steve Info Tag", "Course added!");
+                        myListView.setAdapter(adapter);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+
+                return true;
+            }
+        });*/
     }
 
     @Override

@@ -36,10 +36,20 @@ public class Course {
         return course;
     }
 
+    /**
+     * Returns the course that is being viewed
+     *
+     * @return The active course
+     */
     public static Course getActiveCourse() {
         return activeCourse;
     }
 
+    /**
+     * Sets a selected course to active
+     *
+     * @param c The course that is being set to active
+     */
     public static void setActiveCourse(Course c) {
         if(courseList.contains(c))
             activeCourse = c;
@@ -65,6 +75,11 @@ public class Course {
         courseName = name;
     }
 
+    /**
+     * This adds a section to the course
+     *
+     * @return
+     */
     public Section addSection(){
         Section s = new Section(sections.size() + 1,0);
         sections.add(s);
@@ -79,6 +94,9 @@ public class Course {
     public String getCourseName() {
         return courseName;
     }
+    /*public void setCourseName(String name) {
+        courseName = name;
+    }*/
 
     public void deleteSection(Section section){
         sections.remove(section);
