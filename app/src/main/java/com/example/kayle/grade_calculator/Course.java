@@ -5,6 +5,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class handles the courses
+ */
 public class Course {
 
     private static List<Course> courseList;
@@ -85,21 +88,23 @@ public class Course {
     }
 
     /**
-     * This adds a section to the course
+     * This function adds a section to the course
      *
-     * @return
+     * @param name The name of the section
+     * @param w The weight of the section
+     * @return The couse just added
      */
-    public Section addSection(){
-        Section s = new Section(sections.size() + 1,0);
-        sections.add(s);
-        return s;
-    }
     public Section addSection(String name, Float w) {
         Section s = new Section(name, w);
         sections.add(s);
         return s;
     }
 
+    /**
+     * Gets the name of the course
+     *
+     * @return The course name
+     */
     public String getCourseName() {
         return courseName;
     }
@@ -107,13 +112,30 @@ public class Course {
         courseName = name;
     }*/
 
+    /**
+     * Deletes a section
+     *
+     * @param section The section that is going to be deleted
+     */
     public void deleteSection(Section section){
         sections.remove(section);
     }
 
+    /**
+     * Gets a particular section of the list of sections
+     *
+     * @param i The index of the desired section
+     * @return The section that was requested
+     */
     public Section getSection(int i) {
         return sections.get(i);
     }
+
+    /**
+     * Gets the amount of sections
+     *
+     * @return The size of the section list
+     */
     public int getSectionCount() {
         return sections.size();
     }
