@@ -5,7 +5,7 @@ package com.example.kayle.grade_calculator;
  * Only one of these can be set at a time.
  */
 public class Settings {
-    /*Means that this grade is not set*/
+    /**Means that this grade is not set*/
     public final static float UNSET = -1.0f;
     private float baseGrade;
     private float targetGrade;
