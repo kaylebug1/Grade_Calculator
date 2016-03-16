@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+/**
+ * The activity that contains the logic for the Course Settings Screen.
+ */
 public class SettingsActivity extends AppCompatActivity {
     Settings settings = new Settings();
 
