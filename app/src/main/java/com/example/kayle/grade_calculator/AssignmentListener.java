@@ -11,22 +11,38 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * Listens to clicks on assignments
+ * Listens to clicks on assignments from the Course Activity
  */
-public class AssignmentListener implements View.OnClickListener{
-    TextView addView;
-    Section section;
-    BaseExpandableListAdapter ela;
-    Context context;
-    AssignmentListener(TextView addView, Section s, BaseExpandableListAdapter ela,
+public class AssignmentListener implements View.OnClickListener {
+    private TextView addView;
+    private Section section;
+    private BaseExpandableListAdapter ela;
+    private Context context;
+
+    /**
+     * Creates the AssignmentListener
+     *
+     * @param addView The TextView that this AssignmentListener has been added to
+     * @param section The Section that this assignment listener is in
+     * @param ela The list adapter for the section
+     * @param context The context for this activity
+     */
+    AssignmentListener(TextView addView, Section section, BaseExpandableListAdapter ela,
                        Context context)
     {
         this.addView = addView;
-        this.section = s;
+        this.section = section;
         this.ela = ela;
         this.context = context;
     }
 
+    /**
+     * Checks if the view V is an "Add assignment" button. If it is, it prompts the user for
+     * assignment information
+     *
+     *
+     * @param v The View that was clicked on
+     */
     @Override
     public void onClick(View v) {
         //If it is not a plus, we don't want it to add things
@@ -88,9 +104,6 @@ public class AssignmentListener implements View.OnClickListener{
                 dialog.cancel();
             }
         });
-
-
-
         builder.show();
     }
 }

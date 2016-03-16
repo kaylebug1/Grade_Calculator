@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +89,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+//        File f= new File("CourseData");
+     Log.i("Salmon","'sup dawg");
+        File f = new File("CourseData");
+        try {
+            f.createNewFile(); //
+
+        }
+        catch (IOException ioe) {
+            Log.e("MainActivity","Error in exiting",ioe);
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
