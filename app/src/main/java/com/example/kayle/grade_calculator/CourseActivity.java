@@ -19,6 +19,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/**
+ * This activity keeps track of a course's sections, assignments, and projected grades.
+ */
 public class CourseActivity extends AppCompatActivity {
 
     CourseActivityListAdapter calAdapter;
