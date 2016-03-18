@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //myListView.setLongClickable(true);
-        /*myListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        myListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                            final int position, long id) {
@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
                         String courseName = input.getText().toString();
                         Course.getCourseList().get(position).setCourseName(courseName);
 
-                        //Course.addNewCourse(courseName);
                         List<Course> courseList = Course.getCourseList();
                         ArrayList<String> tempCourses = new ArrayList<>();
                         for (int i = 0; i < courseList.size(); i++) {
@@ -125,17 +124,37 @@ public class MainActivity extends AppCompatActivity {
                         myListView.setAdapter(adapter);
                     }
                 });
+                builder.setNeutralButton("Delete Course", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Course.deleteCourse(position);
+
+                        List<Course> courseList = Course.getCourseList();
+                        ArrayList<String> tempCourses = new ArrayList<>();
+                        for (int i = 0; i < courseList.size(); i++) {
+                            tempCourses.add(courseList.get(i).getCourseName());
+                        }
+
+                        ArrayAdapter<String> adapter;
+
+                        adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
+                                tempCourses);
+
+                        myListView.setAdapter(adapter);
+                    }
+                });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
                 });
+
                 builder.show();
 
                 return true;
             }
-        });*/
+        });
     }
 
     /**
