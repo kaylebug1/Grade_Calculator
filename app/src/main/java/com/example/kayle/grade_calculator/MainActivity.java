@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Course.loadCourselist(this);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -145,15 +146,7 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
 //        File f= new File("CourseData");
-     Log.i("Salmon","'sup dawg");
-        File f = new File("CourseData");
-        try {
-            f.createNewFile(); //
-
-        }
-        catch (IOException ioe) {
-            Log.e("MainActivity","Error in exiting",ioe);
-        }
+        Course.saveCourseList(this);
     }
 
 
