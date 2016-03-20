@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -39,6 +40,7 @@ public class CourseActivity extends AppCompatActivity {
 
         context = this;
         c = Course.getActiveCourse();
+        ExpandableListView expListView = (ExpandableListView) findViewById(R.id.sectionListView);
         findViewById(R.id.addSectionButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +80,57 @@ public class CourseActivity extends AppCompatActivity {
                     }
                 });
                 builder.show();
+            }
+        });
+
+        expListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           final int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Change Section Name");
+                final EditText input = new EditText(context);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setText(c.getSection(position).getName());
+                builder.setView(input);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AlertDialog.Builder builderPer = new AlertDialog.Builder(context);
+                        builderPer.setTitle("Change Section Weight");
+                        final EditText inputPercent = new EditText(context);
+                        inputPercent.setInputType(InputType.TYPE_CLASS_TEXT);
+                        //inputPercent.setText((int)c.getSection(position).getWeight());
+                        builderPer.setView(inputPercent);
+                        builderPer.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String sectionName = input.getText().toString();
+                                Float sectionWeight = Float.valueOf(inputPercent.getText().toString());
+                                c.getSection(position).setName(sectionName);
+                                c.getSection(position).setWeight(sectionWeight);
+                                calAdapter.notifyDataSetChanged();
+                                //Log.i("Tag", "Added Section:" + sectionName + sectionWeight);
+                            }
+                        });
+                        builderPer.show();
+                    }
+                });
+                builder.setNeutralButton("Delete Section", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        c.deleteSection(c.getSection(position));
+                        calAdapter.notifyDataSetChanged();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+                return true;
             }
         });
 

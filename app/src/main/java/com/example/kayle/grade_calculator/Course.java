@@ -154,6 +154,10 @@ public class Course {
         return course;
     }
 
+    public static void deleteCourse(int index) {
+        courseList.remove(index);
+    }
+
     /**
      * Returns the course that is being viewed
      *
@@ -214,9 +218,9 @@ public class Course {
     public String getCourseName() {
         return courseName;
     }
-    /*public void setCourseName(String name) {
+    public void setCourseName(String name) {
         courseName = name;
-    }*/
+    }
 
     /**
      * Deletes a section
