@@ -54,21 +54,31 @@ public class Course {
      */
     public static void loadCourselist(Context context) {
         courseList = new ArrayList<>();
+        final File f = new File(context.getFilesDir() + COURSE_FILE);
+/*
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
+            @Override
+            public void run() {
+                Log.i("Salmon/Palpatine","NO NO NO YOU WILL DIE!");
+                Course.saveCourseList(f);
+            }
+        }));*/
+
         Log.d("Salmon", "Loading course list");
-        File f = new File(context.getFilesDir() + COURSE_FILE);
         if(f.exists()) {
             try {
                 Scanner fileIn = new Scanner(f);
 
                 Course course = new Course("NULL");
-                Section section;
+                Section section = course.addSection("NUL2",0f);
                 Log.d("Salmon","Oh this is exciting");
 
                 while (fileIn.hasNextInt()) {
 
 
                     int flag = fileIn.nextInt();
-                    String name = fileIn.next();
+                    fileIn.nextLine();
+                    String name = fileIn.nextLine();
                     Log.d("Salmon","Weeee" + flag + "-" + name);
                     switch (flag) {
                         case FILEFLAG_COURSE:
@@ -78,11 +88,15 @@ public class Course {
                             break;
                         case FILEFLAG_SECTION:
                             section = course.addSection(name, fileIn.nextFloat());
+//                            fileIn.nextLine();
                             Log.d("Salmon","Section'd!");
                             break;
 
                         case FILEFLAG_ASSIGNMENT:
-
+                            Assignment a = new Assignment(name);
+                            a.setPointsEarned(fileIn.nextFloat());
+                            a.setPointValue(fileIn.nextFloat());
+                            section.addAssignment(a);
                             break;
                     }
                 }
@@ -101,9 +115,13 @@ public class Course {
     }
 
     public static void saveCourseList(Context context) {
+        File f = new File(context.getFilesDir() + COURSE_FILE);
+        saveCourseList(f);
+    }
+
+    public static void saveCourseList(File f) {
 
         Log.d("Salmon", "'sup dawg. I heard you like saving");
-        File f = new File(context.getFilesDir() + COURSE_FILE);
         try {
             f.createNewFile();
 
@@ -125,6 +143,10 @@ public class Course {
                     //Write section name and weight
                     for(Assignment a : s.getAssignments()) {
                         //Write assignment name, pointsvalue, pointsearned (or -1 if not any)
+                        fileWriter.println(FILEFLAG_ASSIGNMENT);
+                        fileWriter.println(a.getName());
+                        fileWriter.println(a.getPointsEarned());
+                        fileWriter.println(a.getPointValue());
                     }
                 }
             }
@@ -133,8 +155,9 @@ public class Course {
             //Debug loop
             Scanner debugFileIn = new Scanner(f);
             while(debugFileIn.hasNext()) {
-                Log.d("Salmon/IntScanner",String.valueOf(debugFileIn.hasNextInt()));
-                Log.d("Salmon/Scanner",debugFileIn.next());
+//                Log.d("Salmon/IntScanner",String.valueOf(debugFileIn.hasNextInt()));
+//                debugFileIn.nextLine();
+                Log.d("Salmon/Scanner",debugFileIn.nextLine());
             }
         }
         catch (IOException ioe) {
