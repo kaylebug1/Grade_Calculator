@@ -74,18 +74,14 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
-                            if (!assignmentName.equals("")) {
-                                float assignmentNum = Float.valueOf(inputNum.getText().toString());
+                            float assignmentNum = Float.valueOf(inputNum.getText().toString());
 
-                                Log.i("Onclick", String.valueOf(assignmentNum));
-                                Assignment a = new Assignment(assignmentName, assignmentNum);
-                                section.addAssignment(a);
-                                ela.notifyDataSetChanged();
-                                Log.d(AssignmentListener.class.toString(), "Grade  " + assignmentNum);
-                            } else {
-                                Assignment assign = new Assignment(assignmentName, Settings.getBaseGrade());
-                                section.addAssignment(assign);
-                            }
+                            Log.i("Onclick", String.valueOf(assignmentNum));
+                            Assignment a = new Assignment(assignmentName, assignmentNum);
+                            section.addAssignment(a);
+                            ela.notifyDataSetChanged();
+                            Log.d(AssignmentListener.class.toString(), "Grade  " + assignmentNum);
+
                         } catch (NumberFormatException e) {
                             Log.e("Onclick", "THAT IS /NOT/ A NUMBER");
                         }
@@ -96,6 +92,8 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
+                        Assignment a = new Assignment(assignmentName, Settings.getBaseGrade());
+                        section.addAssignment(a);
                     }
                 });
                 builderNum.show();

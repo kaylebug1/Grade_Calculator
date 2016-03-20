@@ -1,5 +1,7 @@
 package com.example.kayle.grade_calculator;
 
+import android.util.Log;
+
 /**
  * Represents the Settings of a course, with Target and Base Grade values.
  * Only one of these can be set at a time.
@@ -57,6 +59,8 @@ public class Settings {
     public static void setBaseGrade(float grade) {
         baseGrade = grade;
         targetGrade = UNSET;
+        Log.i("tag", "setting base grade " +grade);
+
     }
 
     /**

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 /**
  * The activity that contains the logic for the Course Settings Screen.
@@ -23,7 +24,9 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("tag", "clicked ok");
                 //float f = Float.valueOf(findViewById(R.id.BaseGrade).toString());
-                //Settings.setBaseGrade(f);
+                EditText ed = (EditText)findViewById(R.id.BaseGrade);
+                float f =  Float.valueOf(ed.getText().toString());
+                Settings.setBaseGrade(f);
 
             }
         });
