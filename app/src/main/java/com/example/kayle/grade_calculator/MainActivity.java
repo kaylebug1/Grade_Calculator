@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 //    private ArrayList<Course> courseList = new ArrayList<>();
     private Context context;
     //public final static String EXTRA_MESSAGE = "com.example.steve.grade_calculator.MESSAGE";
-
+    private ArrayAdapter<String> courseListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +40,20 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         context = this;
+
+        Course.loadCourselist(this);
+        List<Course> courseList = Course.getCourseList();
+        ArrayList<String> tempCourses = new ArrayList<>();
+        for (int i = 0; i < courseList.size(); i++) {
+            tempCourses.add(courseList.get(i).getCourseName());
+        }
+
+        courseListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
+                tempCourses);
+
         final ListView myListView = (ListView) findViewById(R.id.listView);
+        myListView.setAdapter(courseListAdapter);
+
         findViewById(R.id.addCourseButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,19 +70,20 @@ public class MainActivity extends AppCompatActivity {
                         String courseName = input.getText().toString();
 
                         Course.addNewCourse(courseName);
-                        List<Course> courseList = Course.getCourseList();
-                        ArrayList<String> tempCourses = new ArrayList<>();
-                        for (int i = 0; i < courseList.size(); i++) {
-                            tempCourses.add(courseList.get(i).getCourseName());
-                        }
+                        courseListAdapter.add(courseName);
 
-                        ArrayAdapter<String> adapter;
-
-                        adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
-                                tempCourses);
+//                        List<Course> courseList = Course.getCourseList();
+//                        ArrayList<String> tempCourses = new ArrayList<>();
+//                        for (int i = 0; i < courseList.size(); i++) {
+//                            tempCourses.add(courseList.get(i).getCourseName());
+//                        }
+//
+//                        ArrayAdapter<String> adapter;
+//                        adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
+//                                tempCourses);
 
                         Log.i("Steve Info Tag", "Course added!");
-                        myListView.setAdapter(adapter);
+//                        myListView.setAdapter(courseListAdapter);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -164,15 +178,7 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
 //        File f= new File("CourseData");
-     Log.i("Salmon","'sup dawg");
-        File f = new File("CourseData");
-        try {
-            f.createNewFile(); //
-
-        }
-        catch (IOException ioe) {
-            Log.e("MainActivity","Error in exiting",ioe);
-        }
+        Course.saveCourseList(this);
     }
 
 
