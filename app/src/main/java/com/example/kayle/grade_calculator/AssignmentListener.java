@@ -17,7 +17,7 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
     private TextView addView;
     private Section section;
     private BaseExpandableListAdapter ela;
-    private Context context;
+    private CourseActivity context;
 
     /**
      * Creates the AssignmentListener
@@ -28,7 +28,7 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
      * @param context The context for this activity
      */
     AssignmentListener(TextView addView, Section section, BaseExpandableListAdapter ela,
-                       Context context)
+                       CourseActivity context)
     {
         this.addView = addView;
         this.section = section;
@@ -80,6 +80,7 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                                 Log.i("Onclick", String.valueOf(assignmentNum));
                                 Assignment a = new Assignment(assignmentName, assignmentNum);
                                 section.addAssignment(a);
+                                context.updateProjectedGrade();
                                 ela.notifyDataSetChanged();
                                 Log.d(AssignmentListener.class.toString(), "Grade  " + assignmentNum);
                             } else {

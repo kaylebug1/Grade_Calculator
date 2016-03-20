@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
@@ -34,12 +36,12 @@ public class CourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_course);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         //Intent intent = getIntent();
         //String courseName = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
         context = this;
         c = Course.getActiveCourse();
+        updateProjectedGrade();
         ExpandableListView expListView = (ExpandableListView) findViewById(R.id.sectionListView);
         findViewById(R.id.addSectionButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +68,7 @@ public class CourseActivity extends AppCompatActivity {
                                 String sectionName = input.getText().toString();
                                 Float sectionWeight = Float.valueOf(inputPercent.getText().toString());
                                 c.addSection(sectionName, sectionWeight);
+                                updateProjectedGrade();
                                 calAdapter.notifyDataSetChanged();
                                 Log.i("Tag", "Added Section:" + sectionName + sectionWeight);
                             }
@@ -148,10 +151,10 @@ public class CourseActivity extends AppCompatActivity {
     }
 
     private class CourseActivityListAdapter extends BaseExpandableListAdapter {
-        private Context context;
+        private CourseActivity context;
         private Course course;
 
-        CourseActivityListAdapter(Context context,
+        CourseActivityListAdapter(CourseActivity context,
                                   Course crs) {
             this.context = context;
             this.course = crs;
@@ -261,5 +264,10 @@ public class CourseActivity extends AppCompatActivity {
         public int getChildrenCount(int groupPos) {
             return (getGroup(groupPos).getAssignments().size() + 1);
         }
+    }
+
+    public void updateProjectedGrade() {
+        float grade = Calculator.calcGrade(c);
+        ((TextView) findViewById(R.id.projectedScore)).setText(String.format("%.2f%%",grade));
     }
 }
