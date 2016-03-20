@@ -17,13 +17,14 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //final Settings settings = new Settings();
 
         findViewById(R.id.okButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("tag", "clicked ok");
                 //float f = Float.valueOf(findViewById(R.id.BaseGrade).toString());
-                //Settings.setBaseGrade(f);
+                //settings.setBaseGrade(f);
 
             }
         });
