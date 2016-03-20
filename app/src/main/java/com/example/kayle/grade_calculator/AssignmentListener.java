@@ -74,13 +74,18 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
-                            float assignmentNum = Float.valueOf(inputNum.getText().toString());
+                            if (!assignmentName.equals("")) {
+                                float assignmentNum = Float.valueOf(inputNum.getText().toString());
 
-                            Log.i("Onclick", String.valueOf(assignmentNum));
-                            Assignment a = new Assignment(assignmentName, assignmentNum);
-                            section.addAssignment(a);
-                            ela.notifyDataSetChanged();
-                            Log.d(AssignmentListener.class.toString(), "Grade  " + assignmentNum);
+                                Log.i("Onclick", String.valueOf(assignmentNum));
+                                Assignment a = new Assignment(assignmentName, assignmentNum);
+                                section.addAssignment(a);
+                                ela.notifyDataSetChanged();
+                                Log.d(AssignmentListener.class.toString(), "Grade  " + assignmentNum);
+                            } else {
+                                Assignment assign = new Assignment(assignmentName, Settings.getBaseGrade());
+                                section.addAssignment(assign);
+                            }
                         } catch (NumberFormatException e) {
                             Log.e("Onclick", "THAT IS /NOT/ A NUMBER");
                         }

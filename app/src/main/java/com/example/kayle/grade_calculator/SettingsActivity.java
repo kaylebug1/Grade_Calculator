@@ -1,18 +1,15 @@
 package com.example.kayle.grade_calculator;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 /**
  * The activity that contains the logic for the Course Settings Screen.
  */
 public class SettingsActivity extends AppCompatActivity {
-    Settings settings = new Settings();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +21,9 @@ public class SettingsActivity extends AppCompatActivity {
         findViewById(R.id.okButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("tag", "clicked ok");
+                //float f = Float.valueOf(findViewById(R.id.BaseGrade).toString());
+                //Settings.setBaseGrade(f);
 
             }
         });
@@ -31,7 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
         findViewById(R.id.resetButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                settings.reset();
+                Settings.reset();
             }
         });
     }
