@@ -7,8 +7,8 @@ package com.example.kayle.grade_calculator;
 public class Settings {
     /**Means that this grade is not set*/
     public final static float UNSET = -1.0f;
-    private float baseGrade;
-    private float targetGrade;
+    private static float baseGrade = -1;
+    private static float targetGrade;
 
     /**
      * Creates a settings class with already determined base/target grades.
@@ -45,7 +45,7 @@ public class Settings {
      *
      * @return The base grade, or Settings.UNSET if none is specified
      */
-    public float getBaseGrade() {
+    public static float getBaseGrade() {
         return baseGrade;
     }
 
@@ -54,7 +54,7 @@ public class Settings {
      *
      * @param grade The new base grade
      */
-    public void setBaseGrade(float grade) {
+    public static void setBaseGrade(float grade) {
         baseGrade = grade;
         targetGrade = UNSET;
     }
@@ -64,7 +64,7 @@ public class Settings {
      *
      * @return The target grade, or Settings.UNSET if none is specified
      */
-    public float getTargetGrade() {
+    public static float getTargetGrade() {
         return targetGrade;
     }
 
@@ -73,7 +73,7 @@ public class Settings {
      *
      * @param grade The new target grade
      */
-    public void setTargetGrade(float grade) {
+    public static void setTargetGrade(float grade) {
         targetGrade = grade;
         baseGrade = UNSET;
     }
@@ -81,7 +81,7 @@ public class Settings {
     /**
      * Unsets both the target grade and base grade, setting them both to Settings.UNSET
      */
-    public void reset() {
+    public static void reset() {
         setBaseGrade(UNSET);
     }
 }
