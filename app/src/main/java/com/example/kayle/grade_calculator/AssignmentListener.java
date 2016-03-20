@@ -13,7 +13,7 @@ import android.widget.TextView;
 /**
  * Listens to clicks on assignments from the Course Activity
  */
-public class AssignmentListener implements View.OnClickListener {
+public class AssignmentListener implements View.OnClickListener /*, View.OnLongClickListener*/ {
     private TextView addView;
     private Section section;
     private BaseExpandableListAdapter ela;
@@ -106,5 +106,76 @@ public class AssignmentListener implements View.OnClickListener {
         });
         builder.show();
     }
+
+    /*@Override
+    public boolean onLongClick(final View v) {
+        if(((TextView)v.findViewById(R.id.AssignmentName)).getText().equals("+"))
+        {
+            //Log.i("Onclick", "That was not a plus sign");
+            return true;
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Change Assignment Name");
+        final EditText input = new EditText(context);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setText(((TextView)v.findViewById(R.id.AssignmentName)).getText());
+        builder.setView(input);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                final String assignmentName = input.getText().toString();
+                if (assignmentName.equals("+")) {
+                    input.setText("++");
+                    return;
+                }
+                AlertDialog.Builder builderNum = new AlertDialog.Builder(context);
+                builderNum.setTitle("Assignment grade");
+                final EditText inputNum = new EditText(context);
+                inputNum.setInputType(InputType.TYPE_CLASS_TEXT);
+                builderNum.setView(inputNum);
+                builderNum.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            float assignmentNum = Float.valueOf(inputNum.getText().toString());
+
+                            Log.i("Onclick", String.valueOf(assignmentNum));
+                            String oldName = (String) ((TextView) v.findViewById(R.id.AssignmentName)).getText();
+                            CharSequence oldNum = ((TextView) v.findViewById(R.id.percent)).getText();
+                            Assignment old = new Assignment(oldName, Float.parseFloat(String.valueOf(oldNum)));
+                            //Assignment a = new Assignment(assignmentName, assignmentNum);
+                            //section.addAssignment(a);
+                            int index = section.getAssignments().indexOf(old);
+                            section.getAssignments().get(index).setName(assignmentName);
+                            section.getAssignments().get(index).setPointValue(Float.parseFloat(String.valueOf(oldNum)));
+                            ela.notifyDataSetChanged();
+                            Log.d(AssignmentListener.class.toString(), "Grade  " + assignmentNum);
+                        } catch (NumberFormatException e) {
+                            Log.e("Onclick", "THAT IS /NOT/ A NUMBER");
+                        }
+                    }
+                });
+
+                builderNum.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builderNum.show();
+                ela.notifyDataSetChanged();
+                //System.out.println("Added " + assignmentName);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+
+        return true;
+    }*/
 }
 

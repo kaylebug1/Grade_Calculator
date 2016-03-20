@@ -60,6 +60,10 @@ public class Section {
         return assignments;
     }
 
+    /*public Assignment getAssignment(Assignment assignment) {
+        return assignments.get(assignment);
+    }*/
+
     /**
      * gets the weight of the section
      * @return weight of section
