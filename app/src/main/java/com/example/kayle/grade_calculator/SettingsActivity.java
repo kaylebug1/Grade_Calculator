@@ -24,10 +24,19 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("tag", "clicked ok");
                 //float f = Float.valueOf(findViewById(R.id.BaseGrade).toString());
-                EditText ed = (EditText)findViewById(R.id.BaseGrade);
-                float f =  Float.valueOf(ed.getText().toString());
-                Settings.setBaseGrade(f);
-
+                EditText ed = (EditText) findViewById(R.id.BaseGrade);
+                Log.i("tag", "got ed");
+                if (!ed.getText().toString().matches("")) {
+                    Log.i("tag", "in if");
+                    Log.i("tag", ed.getText().toString());
+                    float f = Float.valueOf(ed.getText().toString());
+                    Settings.setBaseGrade(f);
+                    finish();
+                } else {
+                    Log.i("tag", "no base grade");
+                    Settings.setBaseGrade(Settings.UNSET);
+                    finish();
+                }
             }
         });
 

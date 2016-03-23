@@ -7,12 +7,15 @@ public class Assignment {
     /** The total points possible on the assignment, and the points the user actually got */
     private float pointValue, pointsEarned;
     private String name;
+    private Boolean graded = false;
 
     /** Constructs an Assignment with the given name
      *
      * @param name The name of the Assignment
      */
-    Assignment(String name) {this(name,0.0f,0.0f);}
+    Assignment(String name) {
+        this(name,0.0f,0.0f);
+    }
 
     /**
      * Constructs an Assignment with the given name and point value
@@ -20,7 +23,10 @@ public class Assignment {
      * @param name The name of the Assignment
      * @param pointValue The point value of the Assignment
      */
-    Assignment(String name,float pointValue) {this(name,pointValue,0.0f);}
+    Assignment(String name,float pointValue) {
+        this(name, pointValue, 0.0f);
+        graded = true;
+    }
 
     /**
      * Constructs an Assignment with the given name, point value, and points earned
@@ -33,6 +39,7 @@ public class Assignment {
         this.pointValue = pointValue;
         this.pointsEarned = pointsEarned;
         this.name = name;
+        graded = true;
     }
 
     /**
@@ -65,7 +72,7 @@ public class Assignment {
     /**
      * Sets the points the user earned on the assignment
      *
-     * @param pointsEarned
+     * @param pointsEarned grade
      */
     void setPointsEarned(float pointsEarned) {
         this.pointsEarned = pointsEarned;
@@ -80,4 +87,7 @@ public class Assignment {
     public void setName(String assignName) {
         name = assignName;
     }
+
+    public boolean getGraded() {return graded;}
+    public void setGraded(boolean g) {this.graded = g;}
 }

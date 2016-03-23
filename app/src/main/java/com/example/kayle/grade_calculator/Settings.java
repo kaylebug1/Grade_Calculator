@@ -57,10 +57,14 @@ public class Settings {
      * @param grade The new base grade
      */
     public static void setBaseGrade(float grade) {
-        baseGrade = grade;
-        targetGrade = UNSET;
-        Log.i("tag", "setting base grade " +grade);
-
+        if(grade == -1) {
+            baseGrade = grade;
+            targetGrade = UNSET;
+            Log.i("tag", "setting base grade " + grade);
+        }
+        else{
+            baseGrade = UNSET;
+        }
     }
 
     /**

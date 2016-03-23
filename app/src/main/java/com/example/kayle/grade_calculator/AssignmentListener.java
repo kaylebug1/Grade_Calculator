@@ -67,6 +67,7 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                 }
                 AlertDialog.Builder builderNum = new AlertDialog.Builder(context);
                 builderNum.setTitle("Assignment grade");
+                builderNum.setMessage("Click cancel if not graded yet");
                 final EditText inputNum = new EditText(context);
                 inputNum.setInputType(InputType.TYPE_CLASS_TEXT);
                 builderNum.setView(inputNum);
@@ -92,8 +93,15 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                        Assignment a = new Assignment(assignmentName, Settings.getBaseGrade());
-                        section.addAssignment(a);
+                        Float f = Settings.getBaseGrade();
+                        if (f != -1) {
+                            Assignment a = new Assignment(assignmentName, f);
+                            section.addAssignment(a);
+                        } else {
+                            Assignment b = new Assignment(assignmentName);
+                            section.addAssignment(b);
+                        }
+
                     }
                 });
                 builderNum.show();
