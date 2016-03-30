@@ -66,7 +66,6 @@ public class CourseActivity extends AppCompatActivity {
                                 String sectionName = input.getText().toString();
                                 Float sectionWeight = Float.valueOf(inputPercent.getText().toString());
                                 c.addSection(sectionName, sectionWeight);
-                                updateProjectedGrade();
                                 calAdapter.notifyDataSetChanged();
                                 Log.i("Tag", "Added Section:" + sectionName + sectionWeight);
                             }
@@ -140,6 +139,7 @@ public class CourseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CourseActivity.this, SettingsActivity.class);
                 startActivity(intent);
+                updateProjectedGrade();
             }
         });
 
