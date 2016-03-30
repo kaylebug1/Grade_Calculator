@@ -11,6 +11,7 @@ public class Settings {
     public final static float UNSET = -1.0f;
     private static float baseGrade = -1;
     private static float targetGrade;
+    private static boolean set = false;
 
     /**
      * Creates a settings class with already determined base/target grades.
@@ -21,6 +22,7 @@ public class Settings {
     Settings(float grade,boolean isBaseGrade) {
         if(isBaseGrade) {
             setBaseGrade(grade);
+            set = true;
         } else {
             setTargetGrade(grade);
         }
@@ -33,6 +35,7 @@ public class Settings {
      */
     Settings (float baseGrade) {
         setBaseGrade(baseGrade);
+        set = true;
     }
 
     /**
@@ -57,8 +60,9 @@ public class Settings {
      * @param grade The new base grade
      */
     public static void setBaseGrade(float grade) {
-        if(grade == -1) {
+        if(grade != -1) {
             baseGrade = grade;
+            set = true;
             targetGrade = UNSET;
             Log.i("tag", "setting base grade " + grade);
         }
@@ -86,10 +90,18 @@ public class Settings {
         baseGrade = UNSET;
     }
 
+    public static void setSet(boolean s ){
+        set = s;
+    }
+    public static boolean getSet(){
+        return set;
+    }
+
     /**
      * Unsets both the target grade and base grade, setting them both to Settings.UNSET
      */
     public static void reset() {
         setBaseGrade(UNSET);
+        set = false;
     }
 }

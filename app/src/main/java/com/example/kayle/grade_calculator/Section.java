@@ -91,4 +91,8 @@ public class Section {
      * @return Name of section
      */
     public String getName() {return name;}
+
+    public void sectionUpdate() {
+        
+    }
 }

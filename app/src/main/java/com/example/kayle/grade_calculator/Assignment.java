@@ -7,7 +7,7 @@ public class Assignment {
     /** The total points possible on the assignment, and the points the user actually got */
     private float pointValue, pointsEarned;
     private String name;
-    private Boolean graded = false;
+    private Boolean graded = true;
 
     /** Constructs an Assignment with the given name
      *
@@ -25,7 +25,6 @@ public class Assignment {
      */
     Assignment(String name,float pointValue) {
         this(name, pointValue, 0.0f);
-        graded = true;
     }
 
     /**
@@ -39,7 +38,6 @@ public class Assignment {
         this.pointValue = pointValue;
         this.pointsEarned = pointsEarned;
         this.name = name;
-        graded = true;
     }
 
     /**
