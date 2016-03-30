@@ -36,7 +36,6 @@ public class CourseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //Intent intent = getIntent();
         //String courseName = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-
         context = this;
         c = Course.getActiveCourse();
         updateProjectedGrade();

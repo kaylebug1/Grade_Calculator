@@ -14,25 +14,17 @@ public class Section {
     private ArrayList<Assignment> assignments = new ArrayList<>();
     private String name;
     private float weight;
+    private Course course;
 
     /**
      * Constructor with name and weight
      * @param name name of section
      * @param w Weight of section
      */
-    Section(String name, float w)
+    Section(Course c, String name, float w)
     {
+        this.course = c;
         this.name = name;
-        this.weight = w;
-    }
-
-    /**
-     * Constructor with a section number and weight
-     * @param i Section number
-     * @param w Weight of section
-     */
-    Section(int i, float w) {
-        this.name = "Section " + i;
         this.weight = w;
     }
 
@@ -41,6 +33,7 @@ public class Section {
      * @param a assignment to be added
      */
     public void addAssignment(Assignment a) {
+        CourseDataOpenHelper.getInstance().add(course,this,a);
         assignments.add(a);
     }
 

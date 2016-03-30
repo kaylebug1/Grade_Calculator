@@ -26,16 +26,18 @@ import java.util.Scanner;
  */
 public class Course {
 
+
     private static List<Course> courseList;
     private static List<String> courseNames;
     private static Course activeCourse;
     private static final String COURSE_FILE = "CourseData.dat";
+    private static int highestID = 0;
 
     /** Used in file saving */
     private static final int FILEFLAG_COURSE =      0b00;
     private static final int FILEFLAG_SECTION =     0b01;
     private static final int FILEFLAG_ASSIGNMENT =  0b10;
-
+    private int id;
 
     static {
         //loadCourselist();
@@ -53,16 +55,13 @@ public class Course {
      *
      */
     public static void loadCourselist(Context context) {
+
+        CourseDataOpenHelper.createHelper(context);
+        CourseDataOpenHelper helper = CourseDataOpenHelper.getInstance();
+        courseList = helper.readCourseList();
+        /*
         courseList = new ArrayList<>();
         final File f = new File(context.getFilesDir() + COURSE_FILE);
-/*
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
-            @Override
-            public void run() {
-                Log.i("Salmon/Palpatine","NO NO NO YOU WILL DIE!");
-                Course.saveCourseList(f);
-            }
-        }));*/
 
         Log.d("Salmon", "Loading course list");
         if(f.exists()) {
@@ -174,6 +173,7 @@ public class Course {
     public static Course addNewCourse(String courseName) {
         Course course = new Course(courseName);
         courseList.add(course);
+        CourseDataOpenHelper.getInstance().add(course);
         return course;
     }
 
@@ -228,7 +228,22 @@ public class Course {
      * @return The couse just added
      */
     public Section addSection(String name, Float w) {
-        Section s = new Section(name, w);
+        Section s = new Section(this,name, w);
+        sections.add(s);
+        CourseDataOpenHelper.getInstance().add(this,s);
+        return s;
+    }
+
+    /**
+     * This function loads a section to the course. It doesn't add it to the database, so it is used
+     * more when loading the data from the database
+     *
+     * @param name The name of the section
+     * @param w The weight of the section
+     * @return The couse just added
+     */
+    Section loadSection(String name, Float w) {
+        Section s = new Section(this,name, w);
         sections.add(s);
         return s;
     }
@@ -271,5 +286,12 @@ public class Course {
      */
     public int getSectionCount() {
         return sections.size();
+    }
+    public static int getNewId() {
+        return ++highestID;
+    }
+
+    public static void addID(int id) {
+        highestID = Math.max(id,highestID);
     }
 }
