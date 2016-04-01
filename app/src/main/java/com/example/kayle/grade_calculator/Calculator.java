@@ -61,6 +61,8 @@ public class Calculator {
 
         for(Section s : course) {
             List<Assignment> list = s.getAssignments();
+            if(list.size() > 0) {
+
             int graded=0;
             float sectionGrade = 0.0f;
             double percentComplete;
@@ -76,6 +78,8 @@ public class Calculator {
             totalWeight += s.getWeight();
             gradeSet += sectionGrade * s.getWeight() * percentComplete;
             baseInfluence += s.getWeight() * (1 - percentComplete);
+
+            }
         }
         return ((grade*totalWeight) - gradeSet)/baseInfluence;
     }
