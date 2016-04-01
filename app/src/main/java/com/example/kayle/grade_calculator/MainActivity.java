@@ -18,7 +18,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
@@ -57,13 +59,15 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.addCourseButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LinearLayout boxLayout = new LinearLayout(context);
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Add Course");
                 final EditText input = new EditText(context);
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
                 List<Course> courseList = Course.getCourseList();
                 input.setText("Course #" + (courseList.size() + 1));
-                builder.setView(input);
+                boxLayout.addView(input);
+                builder.setView(boxLayout);
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -64,6 +64,16 @@ public class Section {
         return assignments.get(assignment);
     }*/
 
+    public Assignment findAssignment (String assignName) {
+        Assignment temp = new Assignment(assignName);
+        for (int i = 0; i <= assignments.size(); i++) {
+            if (assignments.get(i).getName().equals(assignName)) {
+                return assignments.get(i);
+            }
+        }
+        return temp;
+    }
+
     /**
      * gets the weight of the section
      * @return weight of section

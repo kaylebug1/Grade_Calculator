@@ -44,11 +44,69 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
      * @param v The View that was clicked on
      */
     @Override
-    public void onClick(View v) {
+    public void onClick(final View v) {
         //If it is not a plus, we don't want it to add things
         if(!((TextView)v.findViewById(R.id.AssignmentName)).getText().equals("+"))
         {
             Log.i("Onclick", "That was not a plus sign");
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Change Assignment Name");
+            final EditText input = new EditText(context);
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            input.setText(((TextView) v.findViewById(R.id.AssignmentName)).getText());
+            builder.setView(input);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    final String assignmentName = input.getText().toString();
+                    if (assignmentName.equals("+")) {
+                        input.setText("++");
+                        return;
+                    }
+                    AlertDialog.Builder builderNum = new AlertDialog.Builder(context);
+                    builderNum.setTitle("Change Assignment Grade");
+                    final EditText inputNum = new EditText(context);
+                    inputNum.setInputType(InputType.TYPE_CLASS_TEXT);
+                    builderNum.setView(inputNum);
+                    builderNum.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            try {
+                                float assignmentNum = Float.valueOf(inputNum.getText().toString());
+
+                                Log.i("Onclick", String.valueOf(assignmentNum));
+                                String oldName = (String) ((TextView) v.findViewById(R.id.AssignmentName)).getText();
+                                Assignment old = section.findAssignment(oldName);
+                                int index = section.getAssignments().indexOf(old);
+                                section.getAssignments().get(index).setName(assignmentName);
+                                section.getAssignments().get(index).setPointValue(assignmentNum);
+                                ela.notifyDataSetChanged();
+                                Log.d(AssignmentListener.class.toString(), "Grade  " + assignmentNum);
+                            } catch (NumberFormatException e) {
+                                Log.e("Onclick", "THAT IS /NOT/ A NUMBER");
+                            }
+                        }
+                    });
+
+                    builderNum.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builderNum.show();
+                    ela.notifyDataSetChanged();
+                    //System.out.println("Added " + assignmentName);
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.show();
+
             return;
         }
         Log.i("Onclick","Add an assignment to " + section.getName());

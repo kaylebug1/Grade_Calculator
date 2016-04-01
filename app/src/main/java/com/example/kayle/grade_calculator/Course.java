@@ -245,6 +245,15 @@ public class Course {
         courseName = name;
     }
 
+    public boolean checkSection(String sectionName) {
+        for (int i = 0; i <= sections.size(); i++) {
+            if (sections.get(i).getName().equals(sectionName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Deletes a section
      *
