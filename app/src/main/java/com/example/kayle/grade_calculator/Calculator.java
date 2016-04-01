@@ -29,7 +29,7 @@ public class Calculator {
             Section s = course.getSection(i);
             List<Assignment> assignmentList = s.getAssignments();
             for(Assignment a : assignmentList) {
-                if(a.getGraded()) {
+                if(a.isGraded()) {
                     sectionAvg += a.getPointValue() + a.getPointsEarned();
                     Log.i("tag", "got grade");
                     //Might need modification

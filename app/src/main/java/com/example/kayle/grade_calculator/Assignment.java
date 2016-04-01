@@ -86,6 +86,6 @@ public class Assignment {
         name = assignName;
     }
 
-    public boolean getGraded() {return graded;}
+    public boolean isGraded() {return graded;}
     public void setGraded(boolean g) {this.graded = g;}
 }

@@ -202,7 +202,7 @@ public class CourseActivity extends AppCompatActivity {
             } else {
                 String childTitle = child.getName();
                 String points;
-                if(child.getGraded()) {
+                if(child.isGraded()) {
                     points = String.format("%.2f", child.getPointValue());
                     Log.i("Tag","show grade");
                 }
@@ -220,7 +220,7 @@ public class CourseActivity extends AppCompatActivity {
                 childPointsView = (TextView) convertView.findViewById(R.id.percent);
                 if(childPointsView != null) {
                     Log.i("Tag1","Percent is not null");
-                    if(child.getGraded() || Settings.getSet()){
+                    if(child.isGraded() || Settings.getSet()){
                      points += "%";
                     }
                     childPointsView.setText(points);
