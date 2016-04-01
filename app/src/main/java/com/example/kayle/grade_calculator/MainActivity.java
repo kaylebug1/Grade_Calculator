@@ -175,16 +175,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * When this activity is closed, it saves the data
-     */
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-//        File f= new File("CourseData");
-        Course.saveCourseList(this);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
