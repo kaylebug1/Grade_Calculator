@@ -17,7 +17,7 @@ public class CourseDataOpenHelper extends SQLiteOpenHelper {
 
 
     private static CourseDataOpenHelper singleton;
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 9;
     private static final String DATABASE_NAME = "Coursedata";
     private static final String DICTIONARY_TABLE_NAME = "coursedata";
 
@@ -32,16 +32,17 @@ public class CourseDataOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int currentVersion) {
         db.execSQL("DROP TABLE assignments");
-        db.execSQL("CREATE TABLE assignments (sectionid INTEGER,name TEXT, value REAL, earned REAL, graded INTEGER);");
+        db.execSQL("DROP TABLE sections");
+        db.execSQL("DROP TABLE courses");
+        onCreate(db);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d("ReadingRainbow","Creating stuph!");
-        db.execSQL("CREATE TABLE courses ( id INTEGER, name TEXT);");
+        db.execSQL("CREATE TABLE courses ( id INTEGER, name TEXT, projection REAL, base REAL);");
         db.execSQL("CREATE TABLE sections (id INTEGER, courseid INTEGER, name TEXT, weight REAL);");
         db.execSQL("CREATE TABLE assignments (sectionid INTEGER,name TEXT, value REAL, earned REAL, graded INTEGER);");
-
     }
 
     private int getCourseId(SQLiteDatabase database, Course c) {
@@ -53,15 +54,15 @@ public class CourseDataOpenHelper extends SQLiteOpenHelper {
     public void delete(Course c) {
         SQLiteDatabase database = getWritableDatabase();
         int courseid = getCourseId(database,c);
-        database.execSQL("DELETE FROM courses WHERE id = " + courseid + ";");
         Cursor cursor = database.query("sections",new String[]{"id"}, "courseid = " + courseid, null, null, null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
-            database.execSQL("DELETE FROM assignment WHERE sectionid = " + cursor.getInt(0) + ";");
+            database.execSQL("DELETE FROM assignments WHERE sectionid = " + cursor.getInt(0) + ";");
             cursor.moveToNext();
         }
         cursor.close();
         database.execSQL("DELETE FROM sections WHERE courseid = " +  courseid + ";");
+        database.execSQL("DELETE FROM courses WHERE id = " + courseid + ";");
 //        for(int i = 0; i < c.getSectionCount(); ++i) {
 //            delete(c.getSection(i));
 //        }
@@ -69,10 +70,14 @@ public class CourseDataOpenHelper extends SQLiteOpenHelper {
 
     public void delete(Course c,Section s) {
         SQLiteDatabase database = getWritableDatabase();
-        database.execSQL("DELETE FROM sections WHERE courseid = " + getCourseId(database,c) + " AND name = \"" + s.getName() + "\";");
+        database.execSQL("DELETE FROM assignments WHERE sectionid = " + s.getId() + ";");
+        database.execSQL("DELETE FROM sections WHERE id = " + s.getId() + ";");
     }
 
     public void delete(Section s, Assignment a) {
+        SQLiteDatabase database = getWritableDatabase();
+        database.execSQL("DELETE FROM assignments WHERE sectionid = " + s.getId() + " AND name = '"
+                + a.getName() + "';");
 
     }
 
@@ -119,10 +124,12 @@ public class CourseDataOpenHelper extends SQLiteOpenHelper {
         cursor = database.query("sections",new String[]{"id","courseid","name","weight"}, null, null, null, null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
-            Log.d("ReadingRainbow","SECT - " + cursor.getString(2) + "("+cursor.getInt(0)+") is from course ID " + cursor.getInt(1));
-            sectionMap.put(cursor.getInt(0),
-                    courseMap.get(cursor.getInt(1))
-                            .loadSection(cursor.getInt(0), cursor.getString(2), cursor.getFloat(3)));
+            Log.d("ReadingRainbow", "SECT - " + cursor.getString(2) + "(" + cursor.getInt(0) + ") is from course ID " + cursor.getInt(1));
+            Course c = courseMap.get(cursor.getInt(1));
+            if(c != null) {
+                sectionMap.put(cursor.getInt(0),
+                        c.loadSection(cursor.getInt(0), cursor.getString(2), cursor.getFloat(3)));
+            }
             cursor.moveToNext();
         }
         cursor.close();

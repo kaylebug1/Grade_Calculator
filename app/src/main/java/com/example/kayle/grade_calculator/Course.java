@@ -193,6 +193,7 @@ public class Course implements Iterable<Section> {
      */
     public void deleteSection(Section section){
         sections.remove(section);
+        CourseDataOpenHelper.getInstance().delete(this,section);
     }
 
     /**

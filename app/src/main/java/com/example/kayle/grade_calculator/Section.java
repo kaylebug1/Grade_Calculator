@@ -67,6 +67,7 @@ public class Section {
      */
     public void deleteAssignment(Assignment a) {
         assignments.remove(a);
+        CourseDataOpenHelper.getInstance().delete(this,a);
     }
 
     /**
