@@ -86,10 +86,10 @@ public class CourseActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                            final int position, long id) {
-                if (!(c.checkSection((String)((TextView) arg1.findViewById(R.id.AssignmentName)).getText()))) {
+                /*if (!(c.checkSection((String)((TextView) arg1.findViewById(R.id.AssignmentName)).getText()))) {
                     Log.i("Steve", "test 1");
                     return false;
-                }
+                }*/
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Change Section Name");
                 final EditText input = new EditText(context);
@@ -288,7 +288,7 @@ public class CourseActivity extends AppCompatActivity {
 
     @Override
     public void onStart() {
-        super.onResume();
+        super.onStart();
         updateProjectedGrade();
     }
 }
