@@ -87,7 +87,6 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                             }
                         }
                     });
-
                     builderNum.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -97,6 +96,16 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                     builderNum.show();
                     ela.notifyDataSetChanged();
                     //System.out.println("Added " + assignmentName);
+                }
+            });
+            builder.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String oldName = (String) ((TextView) v.findViewById(R.id.AssignmentName)).getText();
+                    Assignment old = section.findAssignment(oldName);
+                    section.deleteAssignment(old);
+
+                    ela.notifyDataSetChanged();
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
