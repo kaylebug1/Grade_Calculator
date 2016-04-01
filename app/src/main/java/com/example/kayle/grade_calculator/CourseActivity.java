@@ -38,7 +38,7 @@ public class CourseActivity extends AppCompatActivity {
         //String courseName = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         context = this;
         c = Course.getActiveCourse();
-        updateProjectedGrade();
+//        updateProjectedGrade();
         ExpandableListView expListView = (ExpandableListView) findViewById(R.id.sectionListView);
         findViewById(R.id.addSectionButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -284,5 +284,11 @@ public class CourseActivity extends AppCompatActivity {
     public void updateProjectedGrade() {
         float grade = Calculator.calcGrade(c);
         ((TextView) findViewById(R.id.projectedScore)).setText(String.format("%.2f%%",grade));
+    }
+
+    @Override
+    public void onStart() {
+        super.onResume();
+        updateProjectedGrade();
     }
 }
