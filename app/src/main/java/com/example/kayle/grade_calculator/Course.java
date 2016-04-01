@@ -18,13 +18,14 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.Buffer;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
 /**
  * This class handles the courses
  */
-public class Course {
+public class Course implements Iterable<Section> {
 
 
     private static List<Course> courseList;
@@ -129,7 +130,27 @@ public class Course {
         CourseDataOpenHelper.getInstance().add(this,s);
         return s;
     }
-/*
+
+    @Override
+    public Iterator<Section> iterator() {
+        return new Iterator<Section>() {
+            int index = 0;
+            @Override
+            public void remove() {
+                //Does nothing
+            }
+            @Override
+            public Section next() {
+                return sections.get(index);
+            }
+
+            @Override
+            public boolean hasNext() {
+                return (sections.size() > (index + 1));
+            }
+        };
+    }
+
     /**
      * This function loads a section to the course. It doesn't add it to the database, so it is used
      * more when loading the data from the database

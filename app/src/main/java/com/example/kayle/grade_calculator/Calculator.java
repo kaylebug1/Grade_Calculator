@@ -55,9 +55,31 @@ public class Calculator {
      *      target grade
      */
     public float projectNeededGrade(Course course, float grade) {
+        float gradeSet = 0.0f,
+                baseInfluence = 0.0f,
+                totalWeight = 0.0f;
 
-        return course.getSection(0).getAssignments().get(0).getPointsEarned();
+        for(Section s : course) {
+            List<Assignment> list = s.getAssignments();
+            int graded=0;
+            float sectionGrade = 0.0f;
+            double percentComplete;
+
+            for(Assignment a: list) {
+                if(a.isGraded()) {
+                    ++graded;
+                    sectionGrade += a.getPointValue();
+                }
+            }
+            sectionGrade /= graded;
+            percentComplete = graded/list.size();
+            totalWeight += s.getWeight();
+            gradeSet += sectionGrade * s.getWeight() * percentComplete;
+            baseInfluence += s.getWeight() * (1 - percentComplete);
+        }
+        return ((grade*totalWeight) - gradeSet)/baseInfluence;
     }
+
 
     /*public float calcForGrade(Course course) {
         Assignment assign = new Assignment();
