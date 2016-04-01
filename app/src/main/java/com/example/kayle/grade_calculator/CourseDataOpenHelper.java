@@ -38,7 +38,7 @@ public class CourseDataOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d("ReadingRainbow","Creating stuph!");
-        db.execSQL("CREATE TABLE courses ( id INTEGER, name TEXT );");
+        db.execSQL("CREATE TABLE courses ( id INTEGER, name TEXT);");
         db.execSQL("CREATE TABLE sections (id INTEGER, courseid INTEGER, name TEXT, weight REAL);");
         db.execSQL("CREATE TABLE assignments (sectionid INTEGER,name TEXT, value REAL, earned REAL, graded INTEGER);");
 
@@ -54,6 +54,13 @@ public class CourseDataOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = getWritableDatabase();
         int courseid = getCourseId(database,c);
         database.execSQL("DELETE FROM courses WHERE id = " + courseid + ";");
+        Cursor cursor = database.query("sections",new String[]{"id"}, "courseid = " + courseid, null, null, null, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            database.execSQL("DELETE FROM assignment WHERE sectionid = " + cursor.getInt(0) + ";");
+            cursor.moveToNext();
+        }
+        cursor.close();
         database.execSQL("DELETE FROM sections WHERE courseid = " +  courseid + ";");
 //        for(int i = 0; i < c.getSectionCount(); ++i) {
 //            delete(c.getSection(i));
@@ -108,24 +115,27 @@ public class CourseDataOpenHelper extends SQLiteOpenHelper {
             courseMap.put(cursor.getInt(0),courseToAdd);
             cursor.moveToNext();
         }
+        cursor.close();
         cursor = database.query("sections",new String[]{"id","courseid","name","weight"}, null, null, null, null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
-            Log.i("ReadingRainbow","SECT - " + cursor.getString(2) + "("+cursor.getInt(0)+") is from course ID " + cursor.getInt(1));
+            Log.d("ReadingRainbow","SECT - " + cursor.getString(2) + "("+cursor.getInt(0)+") is from course ID " + cursor.getInt(1));
             sectionMap.put(cursor.getInt(0),
                     courseMap.get(cursor.getInt(1))
                             .loadSection(cursor.getInt(0), cursor.getString(2), cursor.getFloat(3)));
             cursor.moveToNext();
         }
+        cursor.close();
         cursor = database.query("assignments",new String[]{"sectionid","name","value","earned","graded"}, null, null, null, null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
-            Log.i("ReadingRianbow","ASSGN - " + cursor.getString(1) + " is from section " + cursor.getInt(0) + "and has " + ((cursor.getInt(4) == 1)?"":"NOT ") + "been graded.");
+            Log.i("ReadingRainbow","ASSGN - " + cursor.getString(1) + " is from section " + cursor.getInt(0) + "and has " + ((cursor.getInt(4) == 1)?"":"NOT ") + "been graded.");
             Assignment a = new Assignment(cursor.getString(1), cursor.getFloat(2), cursor.getFloat(3));
             a.setGraded(cursor.getInt(4) == 1);
             sectionMap.get(cursor.getInt(0)).loadAssignment(a);
             cursor.moveToNext();
         }
+        cursor.close();
         return courseList;
     }
 

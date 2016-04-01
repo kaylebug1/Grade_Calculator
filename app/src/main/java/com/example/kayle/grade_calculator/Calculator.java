@@ -26,22 +26,25 @@ public class Calculator {
         float weightTotal = 0f;
         for(int i = 0; i < course.getSectionCount(); ++i) {
             float sectionAvg = 0f;
+            int graded = 0;
             Section s = course.getSection(i);
             List<Assignment> assignmentList = s.getAssignments();
             for(Assignment a : assignmentList) {
                 if(a.isGraded()) {
                     sectionAvg += a.getPointValue() + a.getPointsEarned();
                     Log.i("tag", "got grade");
+                    ++graded;
                     //Might need modification
                 }
                 else if(Settings.getSet()){
                     sectionAvg += Settings.getBaseGrade();
                     Log.i("tag", "got baseGrade");
+                    ++graded;
                 }
             }
             weightTotal += s.getWeight();
             Log.i("Calc", String.format("%2f",sum) + ",");
-            sum+= (sectionAvg * s.getWeight() / assignmentList.size());
+            sum+= (sectionAvg * s.getWeight() / graded);
         }
         return sum/weightTotal;
     }

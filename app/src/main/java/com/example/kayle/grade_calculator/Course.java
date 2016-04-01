@@ -75,7 +75,7 @@ public class Course implements Iterable<Section> {
     }
 
     public static void deleteCourse(int index) {
-        courseList.remove(index);
+        CourseDataOpenHelper.getInstance().delete(courseList.remove(index));
     }
 
     /**
