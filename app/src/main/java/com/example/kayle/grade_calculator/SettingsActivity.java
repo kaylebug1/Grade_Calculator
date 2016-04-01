@@ -31,10 +31,12 @@ public class SettingsActivity extends AppCompatActivity {
                     Log.i("tag", ed.getText().toString());
                     float f = Float.valueOf(ed.getText().toString());
                     Settings.setBaseGrade(f);
+                    Settings.setSet(true);
                     finish();
                 } else {
                     Log.i("tag", "no base grade");
                     Settings.setBaseGrade(Settings.UNSET);
+                    Settings.setSet(false);
                     finish();
                 }
             }

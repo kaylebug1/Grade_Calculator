@@ -14,25 +14,34 @@ public class Section {
     private ArrayList<Assignment> assignments = new ArrayList<>();
     private String name;
     private float weight;
+    private Course course;
+    private int id;
+    private static int idCount = 0;
 
     /**
      * Constructor with name and weight
      * @param name name of section
      * @param w Weight of section
      */
-    Section(String name, float w)
+    Section(Course c, String name, float w)
     {
+        this.id = ++idCount;
+        this.course = c;
         this.name = name;
         this.weight = w;
     }
 
     /**
-     * Constructor with a section number and weight
-     * @param i Section number
+     * Constructor with name and weight
+     * @param name name of section
      * @param w Weight of section
      */
-    Section(int i, float w) {
-        this.name = "Section " + i;
+    Section(Course c, int id,String name, float w)
+    {
+        this.id = id;
+        idCount = Math.max(id,idCount);
+        this.course = c;
+        this.name = name;
         this.weight = w;
     }
 
@@ -41,6 +50,14 @@ public class Section {
      * @param a assignment to be added
      */
     public void addAssignment(Assignment a) {
+        CourseDataOpenHelper.getInstance().add(this,a);
+        assignments.add(a);
+    }
+    /**
+     * Adds assignment to assignment list, but not to the database. Usually used for loading from the database
+     * @param a assignment to be added
+     */
+    void loadAssignment(Assignment a) {
         assignments.add(a);
     }
 
@@ -101,4 +118,18 @@ public class Section {
      * @return Name of section
      */
     public String getName() {return name;}
+
+    /**
+     * Gets the unique id of this section, used for database storage
+     * @return section id
+     */
+    int getId() {
+        return id;
+    }
+
+    public void sectionUpdate() {
+        
+    }
+
+
 }

@@ -155,12 +155,14 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                         Float f = Settings.getBaseGrade();
                         if (f != -1) {
                             Assignment a = new Assignment(assignmentName, f);
+                            a.setGraded(false);
                             section.addAssignment(a);
                         } else {
                             Assignment b = new Assignment(assignmentName);
+                            b.setGraded(false);
                             section.addAssignment(b);
                         }
-
+                        ela.notifyDataSetChanged();
                     }
                 });
                 builderNum.show();

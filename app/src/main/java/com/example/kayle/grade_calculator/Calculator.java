@@ -29,8 +29,15 @@ public class Calculator {
             Section s = course.getSection(i);
             List<Assignment> assignmentList = s.getAssignments();
             for(Assignment a : assignmentList) {
-                sectionAvg += a.getPointValue() + a.getPointsEarned();
-                //Might need modification
+                if(a.isGraded()) {
+                    sectionAvg += a.getPointValue() + a.getPointsEarned();
+                    Log.i("tag", "got grade");
+                    //Might need modification
+                }
+                else if(Settings.getSet()){
+                    sectionAvg += Settings.getBaseGrade();
+                    Log.i("tag", "got baseGrade");
+                }
             }
             weightTotal += s.getWeight();
             Log.i("Calc", String.format("%2f",sum) + ",");

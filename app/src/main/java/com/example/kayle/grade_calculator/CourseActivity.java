@@ -18,8 +18,6 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 /**
@@ -38,7 +36,6 @@ public class CourseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //Intent intent = getIntent();
         //String courseName = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-
         context = this;
         c = Course.getActiveCourse();
         updateProjectedGrade();
@@ -68,7 +65,6 @@ public class CourseActivity extends AppCompatActivity {
                                 String sectionName = input.getText().toString();
                                 Float sectionWeight = Float.valueOf(inputPercent.getText().toString());
                                 c.addSection(sectionName, sectionWeight);
-                                updateProjectedGrade();
                                 calAdapter.notifyDataSetChanged();
                                 Log.i("Tag", "Added Section:" + sectionName + sectionWeight);
                             }
@@ -146,6 +142,7 @@ public class CourseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CourseActivity.this, SettingsActivity.class);
                 startActivity(intent);
+                updateProjectedGrade();
             }
         });
 
@@ -208,14 +205,28 @@ public class CourseActivity extends AppCompatActivity {
 
             } else {
                 String childTitle = child.getName();
-                String points = String.format("%.2f", child.getPointValue());
+                String points;
+                if(child.isGraded()) {
+                    points = String.format("%.2f", child.getPointValue());
+                    Log.i("Tag","show grade");
+                }
+                else if(Settings.getSet()){
+                    points= String.format("%.2f", Settings.getBaseGrade());
+                    Log.i("tag" , "show base grade");
+                }
+                else{
+                    points = "";
+                    Log.i("Tag", "grade not shown");
+                }
                 childTextView = (TextView) convertView.findViewById(R.id.AssignmentName);
                 childTextView.setText(childTitle);
 
                 childPointsView = (TextView) convertView.findViewById(R.id.percent);
                 if(childPointsView != null) {
                     Log.i("Tag1","Percent is not null");
-                    points += "%";
+                    if(child.isGraded() || Settings.getSet()){
+                     points += "%";
+                    }
                     childPointsView.setText(points);
                 }
                 else{
