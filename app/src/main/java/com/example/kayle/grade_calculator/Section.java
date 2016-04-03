@@ -92,6 +92,15 @@ public class Section {
         return temp;
     }
 
+    public int findAssignmentIndex (String assignName) {
+        for (int i = 0; i <= assignments.size(); i++) {
+            if (assignments.get(i).getName().equals(assignName)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /**
      * gets the weight of the section
      * @return weight of section

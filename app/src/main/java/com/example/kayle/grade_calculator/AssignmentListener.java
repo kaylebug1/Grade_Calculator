@@ -63,6 +63,11 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                         input.setText("++");
                         return;
                     }
+
+                    /*if (section.findAssignmentIndex(assignmentName) != -1 && !oldName.equals(assignmentName) ) {
+                        dialog.cancel();
+                        return;
+                    }*/
                     AlertDialog.Builder builderNum = new AlertDialog.Builder(context);
                     builderNum.setTitle("Change Assignment Grade");
                     final EditText inputNum = new EditText(context);
@@ -83,6 +88,7 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                                 section.getAssignments().get(index).setName(assignmentName);
                                 section.getAssignments().get(index).setPointValue(assignmentNum);
                                 section.getAssignments().get(index).setGraded(true);
+                                context.updateProjectedGrade();
                                 ela.notifyDataSetChanged();
                                 Log.d(AssignmentListener.class.toString(), "Grade  " + assignmentNum);
                             } catch (NumberFormatException e) {
@@ -150,6 +156,11 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                 final String assignmentName = input.getText().toString();
                 if (assignmentName.equals("+")) {
                     input.setText("++");
+                    return;
+                }
+
+                if (section.findAssignmentIndex(assignmentName) != -1) {
+                    dialog.cancel();
                     return;
                 }
                 AlertDialog.Builder builderNum = new AlertDialog.Builder(context);
