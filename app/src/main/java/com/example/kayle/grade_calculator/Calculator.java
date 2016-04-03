@@ -61,27 +61,30 @@ public class Calculator {
         float gradeSet = 0.0f,
                 baseInfluence = 0.0f,
                 totalWeight = 0.0f;
-
+        Log.d("Calcor","ProjectNeededGrade called for course " + course.getCourseName());
         for(Section s : course) {
+            Log.d("Calcor","Checkign out sectoin " + s.getName() + " with " + s.getAssignments().size() + " items");
             List<Assignment> list = s.getAssignments();
             if(list.size() > 0) {
-
-            int graded=1;
+            int graded=0;
             float sectionGrade = 0.0f;
             double percentComplete;
 
             for(Assignment a: list) {
+                Log.d("Calcor","Assn " + a.getName() + " " + a.isGraded());
                 if(a.isGraded()) {
                     ++graded;
                     sectionGrade += a.getPointValue();
                 }
             }
-            sectionGrade /= graded;
-            percentComplete = graded/list.size();
-            totalWeight += s.getWeight();
-            gradeSet += sectionGrade * s.getWeight() * percentComplete;
-            baseInfluence += s.getWeight() * (1 - percentComplete);
-
+            if(graded != 0) {
+                sectionGrade /= graded;
+                percentComplete = ((graded*1.0) / list.size());
+                totalWeight += s.getWeight();
+                gradeSet += sectionGrade * s.getWeight() * percentComplete;
+                baseInfluence += s.getWeight() * (1 - percentComplete);
+                Log.d("Calcor", "SG" + sectionGrade + "*PC " + percentComplete + "*TW " + totalWeight + " *GS " + gradeSet + " *BI " + baseInfluence);
+            }
             }
         }
         return ((grade*totalWeight) - gradeSet)/baseInfluence;

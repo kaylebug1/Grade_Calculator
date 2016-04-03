@@ -147,7 +147,7 @@ public class CourseDataOpenHelper extends SQLiteOpenHelper {
         }
         database.execSQL("UPDATE assignments SET " +
                 fieldOp +
-                "\nWHERE name = " + oldName +  ";");
+                "\nWHERE name = '" + oldName +  "';");
     }
 
     public static void createHelper(Context c) {
