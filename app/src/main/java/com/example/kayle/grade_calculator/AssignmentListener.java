@@ -166,6 +166,7 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                             Log.i("Onclick", String.valueOf(assignmentNum));
                             Assignment a = new Assignment(assignmentName, assignmentNum);
                             section.addAssignment(a);
+                            a.setGraded(true);
                             ela.notifyDataSetChanged();
                             context.updateProjectedGrade();
                             Log.d(AssignmentListener.class.toString(), "Grade  " + assignmentNum);

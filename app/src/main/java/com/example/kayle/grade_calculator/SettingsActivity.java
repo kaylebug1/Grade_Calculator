@@ -37,7 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
                     Settings.setSet(true);
                     finish();
                 }
-                if(!calc.getText().toString().matches("")){
+                else if(!calc.getText().toString().matches("")){
                     Log.i("tag", "in if");
                     Log.i("tag", calc.getText().toString());
                     float f = Float.valueOf(calc.getText().toString());
