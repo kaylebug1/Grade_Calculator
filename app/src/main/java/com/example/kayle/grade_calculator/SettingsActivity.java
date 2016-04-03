@@ -2,7 +2,6 @@ package com.example.kayle.grade_calculator;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -16,8 +15,10 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        /*EditText edit = (EditText)findViewById(R.id.BaseGrade);
+        if(Settings.getSet()) {
+            edit.setText(String.format("%.2f", Settings.getBaseGrade()));
+        }*/
 
         findViewById(R.id.okButton).setOnClickListener(new View.OnClickListener() {
             @Override

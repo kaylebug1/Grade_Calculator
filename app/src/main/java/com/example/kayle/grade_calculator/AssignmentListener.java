@@ -1,7 +1,6 @@
 package com.example.kayle.grade_calculator;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.text.InputType;
 import android.util.Log;
@@ -248,7 +247,9 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                             //section.addAssignment(a);
                             int index = section.getAssignments().indexOf(old);
                             section.getAssignments().get(index).setName(assignmentName);
-                            section.getAssignments().get(index).setPointValue(Float.parseFloat(String.valueOf(oldNum)));
+                            section.getAssignments().get(index).setPointValue(assignmentNum);
+
+
                             ela.notifyDataSetChanged();
                             Log.d(AssignmentListener.class.toString(), "Grade  " + assignmentNum);
                         } catch (NumberFormatException e) {

@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,12 +31,11 @@ public class CourseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         //Intent intent = getIntent();
         //String courseName = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         context = this;
         c = Course.getActiveCourse();
+
 //        updateProjectedGrade();
         ExpandableListView expListView = (ExpandableListView) findViewById(R.id.sectionListView);
         findViewById(R.id.addSectionButton).setOnClickListener(new View.OnClickListener() {
