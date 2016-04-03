@@ -16,8 +16,9 @@
     android:clickable="false"
     android:textColor="@android:color/black"
     android:textSize="24sp"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentStart="true" />
+    android:layout_below="@+id/view"
+    android:layout_toEndOf="@+id/textView10"
+    android:layout_marginLeft="25dp" />
 <View
     android:layout_width="fill_parent"
     android:layout_height="1dp"

@@ -20,7 +20,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Grade Calculator"
         android:id="@+id/textView"
-        android:layout_marginLeft="5dp" />
+        android:layout_marginLeft="5dp"
+        android:textSize="38dp" />
 
     <View
         android:layout_width="match_parent"
@@ -40,7 +41,8 @@
         android:text="Course"
         android:id="@+id/Course"
         android:layout_gravity="left|center_horizontal"
-        android:layout_marginLeft="40dp" />
+        android:layout_marginLeft="40dp"
+        android:textSize="24dp" />
 
     <View
         android:layout_width="300dp"
