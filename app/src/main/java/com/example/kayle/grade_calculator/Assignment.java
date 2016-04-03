@@ -35,9 +35,14 @@ public class Assignment {
      * @param pointsEarned The points the user earned on the Assignment
      */
     Assignment(String name,float pointValue,float pointsEarned) {
+        this(name,pointValue,pointsEarned,true);
+    }
+
+    Assignment(String name,float pointValue,float pointsEarned,boolean graded) {
         this.pointValue = pointValue;
         this.pointsEarned = pointsEarned;
         this.name = name;
+        this.graded = graded;
     }
 
     /**
@@ -56,6 +61,7 @@ public class Assignment {
      */
     void setPointValue(float pointValue) {
         this.pointValue=pointValue;
+        CourseDataOpenHelper.getInstance().update(this,CourseDataOpenHelper.FIELD_ASSIGNMENT_VALUE,name);
     }
 
     /**
@@ -83,9 +89,14 @@ public class Assignment {
      */
     public String getName() {return name;}
     public void setName(String assignName) {
+        String oldName = name;
         name = assignName;
+        CourseDataOpenHelper.getInstance().update(this,CourseDataOpenHelper.FIELD_ASSIGNMENT_NAME,oldName);
     }
 
     public boolean isGraded() {return graded;}
-    public void setGraded(boolean g) {this.graded = g;}
+    public void setGraded(boolean g) {
+        this.graded = g;
+        CourseDataOpenHelper.getInstance().update(this,CourseDataOpenHelper.FIELD_ASSIGNMENT_GRADED,name);
+    }
 }

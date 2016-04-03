@@ -174,6 +174,7 @@ public class Course implements Iterable<Section> {
         return courseName;
     }
     public void setCourseName(String name) {
+        CourseDataOpenHelper.getInstance().update(this,CourseDataOpenHelper.FIELD_COURSE_NAME,name);
         courseName = name;
     }
 

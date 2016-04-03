@@ -16,6 +16,14 @@ import java.util.List;
 public class CourseDataOpenHelper extends SQLiteOpenHelper {
 
 
+    public static final int FIELD_COURSE_NAME = 0;
+    public static final int FIELD_SECTION_NAME = 0;
+    public static final int FIELD_SECTION_WEIGHT = 1;
+    public static final int FIELD_ASSIGNMENT_NAME = 0;
+    public static final int FIELD_ASSIGNMENT_VALUE = 1;
+    public static final int FIELD_ASSIGNMENT_GRADED = 2;
+
+
     private static CourseDataOpenHelper singleton;
     private static final int DATABASE_VERSION = 9;
     private static final String DATABASE_NAME = "Coursedata";
@@ -39,7 +47,7 @@ public class CourseDataOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d("ReadingRainbow","Creating stuph!");
+        Log.d("ReadingRainbow", "Creating stuph!");
         db.execSQL("CREATE TABLE courses ( id INTEGER, name TEXT, projection REAL, base REAL);");
         db.execSQL("CREATE TABLE sections (id INTEGER, courseid INTEGER, name TEXT, weight REAL);");
         db.execSQL("CREATE TABLE assignments (sectionid INTEGER,name TEXT, value REAL, earned REAL, graded INTEGER);");
@@ -48,7 +56,9 @@ public class CourseDataOpenHelper extends SQLiteOpenHelper {
     private int getCourseId(SQLiteDatabase database, Course c) {
         Cursor cursor = database.query("courses", new String[]{"id"}, "name= '" + c.getCourseName() + "'", null, null, null, null, null);
         cursor.moveToFirst();
-        return cursor.getInt(0);
+        int retval = cursor.getInt(0);
+        cursor.close();
+        return retval;
     }
 
     public void delete(Course c) {
@@ -98,6 +108,48 @@ public class CourseDataOpenHelper extends SQLiteOpenHelper {
                 + a.getPointsEarned() + ", " + (a.isGraded()?1:0) + ");");
     }
 
+    public void update(Course c,int field,String newName) {
+        SQLiteDatabase database = getWritableDatabase();
+        database.execSQL("UPDATE courses " +
+                "SET name='" + newName + "'" +
+                "\nWHERE id = " + getCourseId(database,c) +  ";");
+    }
+    public void update(Section s,int field) {
+        SQLiteDatabase database = getWritableDatabase();
+        String fieldOp;
+        switch(field) {
+            case FIELD_SECTION_NAME:
+                fieldOp = "name='" + s.getName() + "'";
+                break;
+            case FIELD_SECTION_WEIGHT:
+            default:
+                fieldOp = "weight=" + s.getWeight();
+                break;
+        }
+        database.execSQL("UPDATE sections SET " +
+                fieldOp +
+                "\nWHERE id = " + s.getId() +  ";");
+    }
+
+    public void update(Assignment assignment,int field,String oldName) {
+        SQLiteDatabase database = getWritableDatabase();
+        String fieldOp;
+        switch(field) {
+            case FIELD_ASSIGNMENT_NAME:
+                fieldOp = "name='" + assignment.getName() + "'";
+                break;
+            case FIELD_ASSIGNMENT_VALUE:
+                fieldOp = "value=" + assignment.getPointValue();
+                break;
+            case FIELD_ASSIGNMENT_GRADED:
+            default:
+                fieldOp = "graded=" + (assignment.isGraded()?1:0);
+        }
+        database.execSQL("UPDATE assignments SET " +
+                fieldOp +
+                "\nWHERE name = " + oldName +  ";");
+    }
+
     public static void createHelper(Context c) {
         singleton = new CourseDataOpenHelper(c);
     }
@@ -137,8 +189,8 @@ public class CourseDataOpenHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
             Log.i("ReadingRainbow","ASSGN - " + cursor.getString(1) + " is from section " + cursor.getInt(0) + "and has " + ((cursor.getInt(4) == 1)?"":"NOT ") + "been graded.");
-            Assignment a = new Assignment(cursor.getString(1), cursor.getFloat(2), cursor.getFloat(3));
-            a.setGraded(cursor.getInt(4) == 1);
+            Assignment a = new Assignment(cursor.getString(1), cursor.getFloat(2), cursor.getFloat(3),(cursor.getInt(4) == 1));
+//            a.setGraded;
             sectionMap.get(cursor.getInt(0)).loadAssignment(a);
             cursor.moveToNext();
         }
