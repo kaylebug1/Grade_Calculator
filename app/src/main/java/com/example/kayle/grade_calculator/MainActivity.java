@@ -67,20 +67,21 @@ public class MainActivity extends AppCompatActivity {
                         String courseName = input.getText().toString();
 
                         Course.addNewCourse(courseName);
-                        courseListAdapter.add(courseName);
+                        //courseListAdapter.add(courseName);
 
-//                        List<Course> courseList = Course.getCourseList();
-//                        ArrayList<String> tempCourses = new ArrayList<>();
-//                        for (int i = 0; i < courseList.size(); i++) {
-//                            tempCourses.add(courseList.get(i).getCourseName());
-//                        }
-//
-//                        ArrayAdapter<String> adapter;
-//                        adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
-//                                tempCourses);
+                        List<Course> courseList = Course.getCourseList();
+                        ArrayList<String> tempCourses = new ArrayList<>();
+                        for (int i = 0; i < courseList.size(); i++) {
+                            tempCourses.add(courseList.get(i).getCourseName());
+                        }
+
+                        ArrayAdapter<String> adapter;
+                        adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
+                                tempCourses);
 
                         Log.i("Steve Info Tag", "Course added!");
-//                        myListView.setAdapter(courseListAdapter);
+                        myListView.setAdapter(adapter);
+                        //myListView.setAdapter(courseListAdapter);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

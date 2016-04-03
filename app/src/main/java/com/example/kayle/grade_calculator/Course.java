@@ -206,6 +206,17 @@ public class Course implements Iterable<Section> {
         return sections.get(i);
     }
 
+    public int findSectionIndex(String sectionName) {
+        Log.i("Steve", "Test findSectionIndex");
+        for (int i = 0; i <= sections.size(); i++) {
+            if (sections.get(i).getName().equals(sectionName)) {
+                Log.i("Steve", "loop " + String.valueOf(i));
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /**
      * Gets the amount of sections
      *
