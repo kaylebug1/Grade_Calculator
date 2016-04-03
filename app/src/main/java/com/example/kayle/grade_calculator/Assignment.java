@@ -5,7 +5,7 @@ package com.example.kayle.grade_calculator;
  */
 public class Assignment {
     /** The total points possible on the assignment, and the points the user actually got */
-    private float pointValue, pointsEarned;
+    private Float pointValue, pointsEarned;
     private String name;
     private Boolean graded = true;
 

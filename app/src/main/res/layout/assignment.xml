@@ -12,7 +12,7 @@
         android:paddingBottom="10dp"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/AssignmentName"
-        android:clickable="false"
+        android:clickable="true"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:layout_alignParentTop="true"
