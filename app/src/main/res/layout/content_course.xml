@@ -16,11 +16,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sectionListView"
-        android:layout_marginBottom="194dp"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/addSectionButton"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/settingsButton"
-        android:layout_alignParentEnd="false" />
+        android:layout_below="@+id/settingsButton" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,20 +26,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Projected Score"
         android:id="@+id/textView2"
-        android:layout_marginBottom="98dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-         />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Percent Complete"
-        android:id="@+id/textView3"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_marginTop="43dp" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -84,16 +70,6 @@
         android:id="@+id/projectedScore"
         android:layout_alignTop="@+id/textView2"
         android:layout_alignParentEnd="true"
-        android:textSize="24dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0%"
-        android:id="@+id/percentComplete"
-        android:layout_alignTop="@+id/textView3"
-        android:layout_alignStart="@+id/projectedScore"
         android:textSize="24dp" />
 
     <TextView

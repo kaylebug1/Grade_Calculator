@@ -64,10 +64,6 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                         return;
                     }
 
-                    /*if (section.findAssignmentIndex(assignmentName) != -1 && !oldName.equals(assignmentName) ) {
-                        dialog.cancel();
-                        return;
-                    }*/
                     AlertDialog.Builder builderNum = new AlertDialog.Builder(context);
                     builderNum.setTitle("Change Assignment Grade");
                     final EditText inputNum = new EditText(context);
@@ -106,22 +102,14 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                             section.getAssignments().get(index).setName(assignmentName);
                             Float f = Settings.getBaseGrade();
                             if (f != -1) {
-                                //Assignment a = new Assignment(assignmentName, f);
                                 old.setGraded(false);
                                 old.setPointValue(f);
-                                //section.getAssignments().get(index).setName(assignmentName);
-                                //section.addAssignment(a);
-                            } else {
-                                //Assignment b = new Assignment(assignmentName);
-                                //b.setGraded(false);
-                                //section.addAssignment(b);
                             }
                             ela.notifyDataSetChanged();
                         }
                     });
                     builderNum.show();
                     ela.notifyDataSetChanged();
-                    //System.out.println("Added " + assignmentName);
                 }
             });
             builder.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
