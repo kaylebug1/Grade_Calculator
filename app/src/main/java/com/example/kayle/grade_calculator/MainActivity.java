@@ -24,17 +24,14 @@ import java.util.List;
  * The main activity keeps track of the various courses
  */
 public class MainActivity extends AppCompatActivity {
-//    private ArrayList<Course> courseList = new ArrayList<>();
     private Context context;
-    //public final static String EXTRA_MESSAGE = "com.example.steve.grade_calculator.MESSAGE";
     private ArrayAdapter<String> courseListAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
-        //ActionBar actionBar = getActionBar();
-        //actionBar.hide();
 
         Course.loadCourselist(this);
         List<Course> courseList = Course.getCourseList();
@@ -67,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
                         String courseName = input.getText().toString();
 
                         Course.addNewCourse(courseName);
-                        //courseListAdapter.add(courseName);
 
                         List<Course> courseList = Course.getCourseList();
                         ArrayList<String> tempCourses = new ArrayList<>();
@@ -81,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
                         Log.i("Steve Info Tag", "Course added!");
                         myListView.setAdapter(adapter);
-                        //myListView.setAdapter(courseListAdapter);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -104,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //myListView.setLongClickable(true);
         myListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,

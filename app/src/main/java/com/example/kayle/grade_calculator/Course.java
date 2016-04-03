@@ -74,6 +74,11 @@ public class Course implements Iterable<Section> {
         return course;
     }
 
+    /**
+     * Deletes a course
+     *
+     * @param index The index of the desired course in the course list
+     */
     public static void deleteCourse(int index) {
         CourseDataOpenHelper.getInstance().delete(courseList.remove(index));
     }
@@ -178,15 +183,6 @@ public class Course implements Iterable<Section> {
         courseName = name;
     }
 
-    public boolean checkSection(String sectionName) {
-        for (int i = 0; i <= sections.size(); i++) {
-            if (sections.get(i).getName().equals(sectionName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     /**
      * Deletes a section
      *
@@ -207,11 +203,16 @@ public class Course implements Iterable<Section> {
         return sections.get(i);
     }
 
+    /**
+     * Finds the index of a section within the sectionlist
+     *
+     * @param sectionName Name of the desired section
+     * @return The index of the section if found, or -1 if not found
+     */
     public int findSectionIndex(String sectionName) {
-        Log.i("Steve", "Test findSectionIndex");
         for (int i = 0; i <= sections.size(); i++) {
             if (sections.get(i).getName().equals(sectionName)) {
-                Log.i("Steve", "loop " + String.valueOf(i));
+                Log.i("Steve", "loop entered " + String.valueOf(i));
                 return i;
             }
         }

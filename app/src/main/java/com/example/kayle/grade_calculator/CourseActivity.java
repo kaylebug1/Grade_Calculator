@@ -31,12 +31,9 @@ public class CourseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
-        //Intent intent = getIntent();
-        //String courseName = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         context = this;
         c = Course.getActiveCourse();
 
-//        updateProjectedGrade();
         ExpandableListView expListView = (ExpandableListView) findViewById(R.id.sectionListView);
         findViewById(R.id.addSectionButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,10 +49,6 @@ public class CourseActivity extends AppCompatActivity {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (c.findSectionIndex(input.getText().toString()) != -1) {
-                            dialog.cancel();
-                            return;
-                        }
                         AlertDialog.Builder builderPer = new AlertDialog.Builder(context);
                         builderPer.setTitle("Section weight");
                         final EditText inputPercent = new EditText(context);
@@ -108,7 +101,6 @@ public class CourseActivity extends AppCompatActivity {
                     builder.setTitle("Change Section Name");
                     final EditText input = new EditText(context);
                     input.setInputType(InputType.TYPE_CLASS_TEXT);
-                    final String oldName = c.getSection(secPosition).getName();
                     input.setText(c.getSection(secPosition).getName());
                     builder.setView(input);
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -119,20 +111,20 @@ public class CourseActivity extends AppCompatActivity {
                             builderPer.setTitle("Change Section Weight");
                             final EditText inputPercent = new EditText(context);
                             inputPercent.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-                            //inputPercent.setText((int) c.getSection(position).getWeight());
                             builderPer.setView(inputPercent);
                             builderPer.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    if (inputPercent.getText().toString().trim().length() == 0)  {
+                                        dialog.cancel();
+                                        return;
+                                    }
                                     String sectionName = input.getText().toString();
                                     Float sectionWeight = Float.valueOf(inputPercent.getText().toString());
-                                    //if (c.checkSection(sectionName) && !oldName.equals(sectionName)) {
                                     c.getSection(secPosition).setName(sectionName);
                                     c.getSection(secPosition).setWeight(sectionWeight);
                                     calAdapter.notifyDataSetChanged();
                                     updateProjectedGrade();
-                                    //}
-                                    //Log.i("Tag", "Added Section:" + sectionName + sectionWeight);
                                 }
                             });
                             builderPer.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
