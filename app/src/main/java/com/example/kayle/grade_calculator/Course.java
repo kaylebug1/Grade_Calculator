@@ -141,12 +141,12 @@ public class Course implements Iterable<Section> {
             }
             @Override
             public Section next() {
-                return sections.get(index);
+                return sections.get(index++);
             }
 
             @Override
             public boolean hasNext() {
-                return (sections.size() > (index + 1));
+                return (sections.size() > (index));
             }
         };
     }
@@ -174,6 +174,7 @@ public class Course implements Iterable<Section> {
         return courseName;
     }
     public void setCourseName(String name) {
+        CourseDataOpenHelper.getInstance().update(this,CourseDataOpenHelper.FIELD_COURSE_NAME,name);
         courseName = name;
     }
 

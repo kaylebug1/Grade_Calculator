@@ -310,7 +310,7 @@ public class CourseActivity extends AppCompatActivity {
 
     public void updateProjectedGrade() {
         float grade = Calculator.calcGrade(c);
-        ((TextView) findViewById(R.id.projectedScore)).setText(String.format("%.2f%%",grade));
+        ((TextView) findViewById(R.id.projectedScore)).setText((new Double(grade).isNaN())?"-%":String.format("%.2f%%",grade));
     }
 
     @Override

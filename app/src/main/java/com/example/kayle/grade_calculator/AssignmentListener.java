@@ -198,8 +198,8 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                             a.setGraded(false);
                             section.addAssignment(a);
                         } else {
-                            Assignment b = new Assignment(assignmentName);
-                            b.setGraded(false);
+                            Assignment b = new Assignment(assignmentName,0.0f,0.0f,false);
+//                            b.setGraded(false);
                             section.addAssignment(b);
                         }
                         ela.notifyDataSetChanged();

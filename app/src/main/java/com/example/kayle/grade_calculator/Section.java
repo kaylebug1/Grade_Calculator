@@ -115,13 +115,17 @@ public class Section {
      */
     public void setWeight (float f) {
         this.weight = f;
+        CourseDataOpenHelper.getInstance().update(this,CourseDataOpenHelper.FIELD_SECTION_WEIGHT);
     }
 
     /**
      * Sets name of section
      * @param name name of section
      */
-    public void setName(String name) { this.name = name;}
+    public void setName(String name) {
+        this.name = name;
+        CourseDataOpenHelper.getInstance().update(this,CourseDataOpenHelper.FIELD_SECTION_NAME);
+    }
 
     /**
      * Gets name of section
