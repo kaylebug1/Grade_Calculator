@@ -72,7 +72,7 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             try {
-                                float assignmentNum = Float.valueOf(inputNum.getText().toString());
+                                final float assignmentNum = Float.valueOf(inputNum.getText().toString());
 
                                 Log.i("Onclick", String.valueOf(assignmentNum));
                                 //String oldName = (String) ((TextView) v.findViewById(R.id.AssignmentName)).getText();
@@ -82,6 +82,7 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                                 Log.i("Steve", "OK: new Value: " + assignmentNum);
                                 section.getAssignments().get(index).setName(assignmentName);
                                 section.getAssignments().get(index).setPointValue(assignmentNum);
+                                section.getAssignments().get(index).setGraded(true);
                                 ela.notifyDataSetChanged();
                                 Log.d(AssignmentListener.class.toString(), "Grade  " + assignmentNum);
                             } catch (NumberFormatException e) {
