@@ -82,6 +82,12 @@ public class Section {
         return assignments.get(assignment);
     }*/
 
+    /**
+     * Finds an assignment within an assignmentlist
+     *
+     * @param assignName The name of the desired assignment
+     * @return The desired assignment or a new assignment, if the desired one is not found
+     */
     public Assignment findAssignment (String assignName) {
         Assignment temp = new Assignment(assignName);
         for (int i = 0; i <= assignments.size(); i++) {
@@ -90,15 +96,6 @@ public class Section {
             }
         }
         return temp;
-    }
-
-    public int findAssignmentIndex (String assignName) {
-        for (int i = 0; i <= assignments.size(); i++) {
-            if (assignments.get(i).getName().equals(assignName)) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     /**

@@ -64,6 +64,10 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                         return;
                     }
 
+                    /*if (section.findAssignmentIndex(assignmentName) != -1 && !oldName.equals(assignmentName) ) {
+                        dialog.cancel();
+                        return;
+                    }*/
                     AlertDialog.Builder builderNum = new AlertDialog.Builder(context);
                     builderNum.setTitle("Change Assignment Grade");
                     final EditText inputNum = new EditText(context);
@@ -76,7 +80,6 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                                 final float assignmentNum = Float.valueOf(inputNum.getText().toString());
 
                                 Log.i("Onclick", String.valueOf(assignmentNum));
-                                //String oldName = (String) ((TextView) v.findViewById(R.id.AssignmentName)).getText();
                                 Assignment old = section.findAssignment(oldName);
                                 int index = section.getAssignments().indexOf(old);
                                 Log.i("Steve", "OK: new Name: " + assignmentName + " old name: " + oldName);
@@ -102,8 +105,9 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                             section.getAssignments().get(index).setName(assignmentName);
                             Float f = Settings.getBaseGrade();
                             if (f != -1) {
-                                old.setGraded(false);
-                                old.setPointValue(f);
+                                section.getAssignments().get(index).setGraded(false);
+                                section.getAssignments().get(index).setPointValue(f);
+                                context.updateProjectedGrade();
                             }
                             ela.notifyDataSetChanged();
                         }
@@ -147,10 +151,6 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                     return;
                 }
 
-                if (section.findAssignmentIndex(assignmentName) != -1) {
-                    dialog.cancel();
-                    return;
-                }
                 AlertDialog.Builder builderNum = new AlertDialog.Builder(context);
                 builderNum.setTitle("Assignment grade");
                 builderNum.setMessage("Click cancel if not graded yet");
@@ -187,7 +187,6 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                             section.addAssignment(a);
                         } else {
                             Assignment b = new Assignment(assignmentName,0.0f,0.0f,false);
-//                            b.setGraded(false);
                             section.addAssignment(b);
                         }
                         ela.notifyDataSetChanged();
@@ -206,78 +205,5 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
         });
         builder.show();
     }
-
-    /*@Override
-    public boolean onLongClick(final View v) {
-        if(((TextView)v.findViewById(R.id.AssignmentName)).getText().equals("+"))
-        {
-            //Log.i("Onclick", "That was not a plus sign");
-            return true;
-        }
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Change Assignment Name");
-        final EditText input = new EditText(context);
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        input.setText(((TextView)v.findViewById(R.id.AssignmentName)).getText());
-        builder.setView(input);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                final String assignmentName = input.getText().toString();
-                if (assignmentName.equals("+")) {
-                    input.setText("++");
-                    return;
-                }
-                AlertDialog.Builder builderNum = new AlertDialog.Builder(context);
-                builderNum.setTitle("Assignment grade");
-                final EditText inputNum = new EditText(context);
-                inputNum.setInputType(InputType.TYPE_CLASS_TEXT);
-                builderNum.setView(inputNum);
-                builderNum.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        try {
-                            float assignmentNum = Float.valueOf(inputNum.getText().toString());
-
-                            Log.i("Onclick", String.valueOf(assignmentNum));
-                            String oldName = (String) ((TextView) v.findViewById(R.id.AssignmentName)).getText();
-                            CharSequence oldNum = ((TextView) v.findViewById(R.id.percent)).getText();
-                            Assignment old = new Assignment(oldName, Float.parseFloat(String.valueOf(oldNum)));
-                            //Assignment a = new Assignment(assignmentName, assignmentNum);
-                            //section.addAssignment(a);
-                            int index = section.getAssignments().indexOf(old);
-                            section.getAssignments().get(index).setName(assignmentName);
-                            section.getAssignments().get(index).setPointValue(assignmentNum);
-
-
-                            ela.notifyDataSetChanged();
-                            Log.d(AssignmentListener.class.toString(), "Grade  " + assignmentNum);
-                        } catch (NumberFormatException e) {
-                            Log.e("Onclick", "THAT IS /NOT/ A NUMBER");
-                        }
-                    }
-                });
-
-                builderNum.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builderNum.show();
-                ela.notifyDataSetChanged();
-                //System.out.println("Added " + assignmentName);
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        builder.show();
-
-        return true;
-    }*/
 }
 
