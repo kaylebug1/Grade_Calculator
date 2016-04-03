@@ -50,6 +50,7 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
         {
             Log.i("Onclick", "That was not a plus sign");
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            final String oldName = (String) ((TextView)v.findViewById(R.id.AssignmentName)).getText();
             builder.setTitle("Change Assignment Name");
             final EditText input = new EditText(context);
             input.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -66,7 +67,7 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                     AlertDialog.Builder builderNum = new AlertDialog.Builder(context);
                     builderNum.setTitle("Change Assignment Grade");
                     final EditText inputNum = new EditText(context);
-                    inputNum.setInputType(InputType.TYPE_CLASS_TEXT);
+                    inputNum.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                     builderNum.setView(inputNum);
                     builderNum.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
@@ -75,9 +76,11 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                                 float assignmentNum = Float.valueOf(inputNum.getText().toString());
 
                                 Log.i("Onclick", String.valueOf(assignmentNum));
-                                String oldName = (String) ((TextView) v.findViewById(R.id.AssignmentName)).getText();
+                                //String oldName = (String) ((TextView) v.findViewById(R.id.AssignmentName)).getText();
                                 Assignment old = section.findAssignment(oldName);
                                 int index = section.getAssignments().indexOf(old);
+                                Log.i("Steve", "OK: new Name: " + assignmentName + " old name: " + oldName);
+                                Log.i("Steve", "OK: new Value: " + assignmentNum);
                                 section.getAssignments().get(index).setName(assignmentName);
                                 section.getAssignments().get(index).setPointValue(assignmentNum);
                                 ela.notifyDataSetChanged();
@@ -91,6 +94,23 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
+                            String oldName = (String) ((TextView) v.findViewById(R.id.AssignmentName)).getText();
+                            Assignment old = section.findAssignment(oldName);
+                            int index = section.getAssignments().indexOf(old);
+                            section.getAssignments().get(index).setName(assignmentName);
+                            Float f = Settings.getBaseGrade();
+                            if (f != -1) {
+                                //Assignment a = new Assignment(assignmentName, f);
+                                old.setGraded(false);
+                                old.setPointValue(f);
+                                //section.getAssignments().get(index).setName(assignmentName);
+                                //section.addAssignment(a);
+                            } else {
+                                //Assignment b = new Assignment(assignmentName);
+                                //b.setGraded(false);
+                                //section.addAssignment(b);
+                            }
+                            ela.notifyDataSetChanged();
                         }
                     });
                     builderNum.show();
@@ -136,7 +156,7 @@ public class AssignmentListener implements View.OnClickListener /*, View.OnLongC
                 builderNum.setTitle("Assignment grade");
                 builderNum.setMessage("Click cancel if not graded yet");
                 final EditText inputNum = new EditText(context);
-                inputNum.setInputType(InputType.TYPE_CLASS_TEXT);
+                inputNum.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 builderNum.setView(inputNum);
                 builderNum.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
