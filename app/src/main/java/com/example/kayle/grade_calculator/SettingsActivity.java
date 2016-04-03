@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * The activity that contains the logic for the Course Settings Screen.
@@ -26,7 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
                 Log.i("tag", "clicked ok");
                 //float f = Float.valueOf(findViewById(R.id.BaseGrade).toString());
                 EditText ed = (EditText) findViewById(R.id.BaseGrade);
-                //EditText calc = (EditText) findViewById(R.id.)
+                EditText calc = (EditText) findViewById(R.id.TargetGrade);
                 Log.i("tag", "got ed");
                 if (!ed.getText().toString().matches("")) {
                     Log.i("tag", "in if");
@@ -35,7 +36,17 @@ public class SettingsActivity extends AppCompatActivity {
                     Settings.setBaseGrade(f);
                     Settings.setSet(true);
                     finish();
-                } else {
+                }
+                if(!calc.getText().toString().matches("")){
+                    Log.i("tag", "in if");
+                    Log.i("tag", calc.getText().toString());
+                    float f = Float.valueOf(calc.getText().toString());
+                    float gradeNeeded = Calculator.projectNeededGrade(Course.getActiveCourse(), f);
+                    TextView tv = (TextView)findViewById(R.id.GradeNeeded);
+                    tv.setText(Float.valueOf(gradeNeeded).toString());
+
+                }
+                else {
                     Log.i("tag", "no base grade");
                     Settings.setBaseGrade(Settings.UNSET);
                     Settings.setSet(false);

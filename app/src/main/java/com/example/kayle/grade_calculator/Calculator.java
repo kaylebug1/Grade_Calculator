@@ -57,7 +57,7 @@ public class Calculator {
      * @return The grade percent that, if every assignment had this grade, it would reach the
      *      target grade
      */
-    public float projectNeededGrade(Course course, float grade) {
+    public static float projectNeededGrade(Course course, float grade) {
         float gradeSet = 0.0f,
                 baseInfluence = 0.0f,
                 totalWeight = 0.0f;
@@ -66,7 +66,7 @@ public class Calculator {
             List<Assignment> list = s.getAssignments();
             if(list.size() > 0) {
 
-            int graded=0;
+            int graded=1;
             float sectionGrade = 0.0f;
             double percentComplete;
 
