@@ -26,6 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
                 Log.i("tag", "clicked ok");
                 //float f = Float.valueOf(findViewById(R.id.BaseGrade).toString());
                 EditText ed = (EditText) findViewById(R.id.BaseGrade);
+                //EditText calc = (EditText) findViewById(R.id.)
                 Log.i("tag", "got ed");
                 if (!ed.getText().toString().matches("")) {
                     Log.i("tag", "in if");
